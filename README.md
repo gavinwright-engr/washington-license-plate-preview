@@ -8,7 +8,7 @@ Explore Washington license plate designs and try your own characters in a live p
 
 [Watch the full-quality video](docs/media/demo.mp4) · [Desktop](docs/media/desktop.png) · [Mobile](docs/media/mobile.png)
 
-- **Compare options:** separate standard and special plates, cost groups, and a compact searchable gallery of all 75 entries.
+- **Choose your plate:** standard or special, with assigned or custom characters and a compact searchable gallery of all 75 entries.
 - **Try your characters:** live format feedback, original-sample comparison, and optional month/year tabs.
 - **Easy to embed:** responsive HTML, CSS, and JavaScript. No dependencies, build step, accounts, or tracking.
 
@@ -28,7 +28,7 @@ To add the preview to an existing website, follow the [integration guide](docs/I
 
 An independent prototype using published DOL samples. Personalized lettering, reconstructed backgrounds, and date tabs are approximate. Availability and final approval remain with DOL; this preview does not check or reserve a number.
 
-**Verified:** 14 automated checks, all 75 catalog entries, and documented desktop/mobile browser checks. [See the verification record](docs/VERIFICATION.md). Run the tests with `node --test`.
+**Verified:** 12 automated checks, all 75 catalog entries, and documented desktop/mobile browser checks. [See the verification record](docs/VERIFICATION.md). Run the tests with `node --test`.
 
 ## License
 
@@ -40,7 +40,6 @@ Original code and documentation: [MIT](LICENSE). DOL artwork and bundled fonts h
 - [Integration and API](docs/INTEGRATION.md)
 - [Artwork and rendering](docs/ARTWORK.md) · [Font calibration](docs/FONTS.md)
 - [Sources](docs/SOURCES.md) · [Security and privacy](docs/SECURITY.md)
-- [Fee scope and sources](docs/FEES.md)
 - [Contributing](CONTRIBUTING.md)
 
 </details>

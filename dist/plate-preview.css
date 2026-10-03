@@ -26,13 +26,7 @@
 .wa-plate-preview .wpp-background-grid .wpp-option-face { padding: 12px 12px 12px 36px; }
 .wa-plate-preview .wpp-background-grid .wpp-option-radio { top: 15px; left: 12px; }
 .wa-plate-preview .wpp-background-grid .wpp-option-title { font-size: 14px; }
-.wa-plate-preview .wpp-cost-filter { max-width: 100%; }
-.wa-plate-preview .wpp-cost-select { text-overflow: ellipsis; }
 .wa-plate-preview .wpp-filters { margin-top: 16px; }
-.wa-plate-preview .wpp-fees { border-top: 1px solid #d9dfe3; margin-top: 12px; padding-top: 12px; }
-.wa-plate-preview .wpp-fee-summary { font-size: 14px; font-weight: 600; margin: 0 0 4px; }
-.wa-plate-preview .wpp-fee-scope, .wa-plate-preview .wpp-fee-link { font-size: 11px; color: var(--wpp-muted); margin: 0; }
-.wa-plate-preview .wpp-fee-link { display: inline-block; padding-top: 6px; color: var(--wpp-blue); }
 .wa-plate-preview .wpp-gallery-toolbar { position: sticky; top: 0; z-index: 2; padding: 12px 0 8px; margin-top: -12px; background: #fdfdfd; border-bottom: 1px solid #d9dfe3; }
 .wa-plate-preview .wpp-filters { display: grid; grid-template-columns: minmax(0,1.7fr) minmax(0,1fr); gap: 12px; }
 .wa-plate-preview .wpp-label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 5px; }
@@ -116,6 +110,10 @@
 .wa-plate-preview .wpp-tabs:hover { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--wpp-blue); }
 .wa-plate-preview .wpp-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .wa-plate-preview .wpp-mobile-bar, .wa-plate-preview .wpp-back-designs { display: none; }
+.wa-plate-preview .wpp-pending-preview { padding: 12px 0; }
+.wa-plate-preview .wpp-pending-preview .wpp-heading { font-size: 16px; margin-bottom: 6px; }
+.wa-plate-preview .wpp-pending-preview p { font-size: 13px; color: var(--wpp-muted); margin: 0; }
+.wa-plate-preview.wpp-awaiting-design .wpp-mobile-bar, .wa-plate-preview.wpp-awaiting-design .wpp-back-designs { display: none; }
 .wa-plate-preview.wpp-standard-view .wpp-layout { display: block; }
 .wa-plate-preview.wpp-standard-view .wpp-panel { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 28px; max-width: 760px; position: static; }
 .wa-plate-preview.wpp-standard-view .wpp-registration-options { margin-top: 0; }
@@ -124,6 +122,7 @@
 @media (max-width: 950px) { .wa-plate-preview .wpp-layout { grid-template-columns: minmax(0,1fr) 300px; gap: 16px; } .wa-plate-preview .wpp-design-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .wa-plate-preview .wpp-filters { grid-template-columns: 1fr; gap: 8px; } .wa-plate-preview .wpp-design-card { scroll-margin-top: 252px; } .wa-plate-preview .wpp-panel { padding: 12px; } }
 @media (max-width: 1000px) { .wa-plate-preview .wpp-layout { grid-template-columns: minmax(0,1fr); gap: 24px; } .wa-plate-preview .wpp-panel { position: static; padding: 16px; width: 100%; max-width: 480px; justify-self: center; } .wa-plate-preview .wpp-design-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; } .wa-plate-preview .wpp-gallery-toolbar { position: static; } .wa-plate-preview .wpp-filters { grid-template-columns: minmax(0,1.2fr) minmax(0,1fr); gap: 10px; } .wa-plate-preview :is(.wpp-search,.wpp-select) { font-size: 16px; } .wa-plate-preview .wpp-design-card { scroll-margin-top: 12px; } .wa-plate-preview .wpp-card-face { padding: 8px; } .wa-plate-preview .wpp-card-title { padding-left: 22px; } .wa-plate-preview .wpp-design-radio { left: 10px; } .wa-plate-preview .wpp-mobile-bar { position: sticky; bottom: 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #ccd4d9; background: #fff; box-shadow: 0 -5px 12px #0000000a; } .wa-plate-preview .wpp-mobile-name { font-size: 12px; font-weight: 600; min-width: 0; } .wa-plate-preview .wpp-preview-jump { flex-shrink: 0; border: 0; border-radius: 3px; padding: 12px; min-height: 44px; font-size: 12px; color: #fff; background: var(--wpp-blue); } .wa-plate-preview .wpp-back-designs { display: block; margin-bottom: 4px; } }
 @media (max-width: 600px) { .wa-plate-preview .wpp-design-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 1000px) { .wa-plate-preview.wpp-awaiting-design .wpp-panel { display: none; } }
 @media (max-width: 600px) { .wa-plate-preview.wpp-standard-view .wpp-panel { display: block; } .wa-plate-preview.wpp-standard-view .wpp-registration-options { margin-top: 16px; } .wa-plate-preview .wpp-filters { grid-template-columns: minmax(0,1fr); } .wa-plate-preview .wpp-background-grid { gap: 8px; } .wa-plate-preview .wpp-background-grid .wpp-option-face { padding-right: 8px; } }
 @media (max-height: 760px) { .wa-plate-preview .wpp-panel, .wa-plate-preview .wpp-gallery-toolbar { position: static; } .wa-plate-preview .wpp-design-card { scroll-margin-top: 12px; } }
 @media (prefers-reduced-motion: reduce) { .wa-plate-preview *, .wa-plate-preview *::before, .wa-plate-preview *::after { scroll-behavior: auto !important; transition: none !important; } }

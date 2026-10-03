@@ -1,15 +1,16 @@
 # Verification record
 
-## Cost groups and quieter browsing
+## Standard/special and assigned/custom choices
 
 Checked October 2, 2026 in Edge/Chromium **154.0.4258.48**, under the standalone CSP.
 
-- All 14 Node checks pass, including fee exceptions, null-versus-zero handling, and unchanged original artwork/font integrity.
-- Standard and special plate types are separate. Standard starts without a gallery. Special opens six thumbnails, each at most 160 pixels wide; all 55 common-rate designs are reachable through Show more. Other cost groups retain all remaining catalog entries.
-- Initial/renewal prices update with personalization. Square Dancer, Keep Kids Safe, standard, and individual eligibility-based entries remain separate. Cost-group changes reset gallery filters, restore the last choice in that group, and preserve typed characters. Standard/special changes restore the last special choice.
+- All 12 Node checks pass, including unchanged original artwork/font integrity. Pricing data, UI, and cost-specific tests were removed.
+- Standard and special plate types are separate. Standard starts without a gallery. Special opens six thumbnails, each at most 160 pixels wide; all 74 special entries are reachable through Show more, search, and categories.
+- Both plate types offer Assigned (DOL chooses) and Custom (you choose). All four combinations preserve typed characters. Standard/special changes restore the last special choice; filters never silently change the selected plate.
+- First opening Special selects no design and shows only a preview prompt. No thumbnail is checked, artwork and character settings are hidden, and API state has a null design. Filtering, returning to standard and back before choosing, and a date-visibility update leave that pending state intact. Selecting a design then reveals the preview and restores any retained candidate.
 - Search, category filtering, empty results, native radio arrow navigation, all 75 assigned images, sample comparison, tab click/keyboard controls, unsupported personalization, multiple instances, and host-form isolation passed.
 - Standard and special layouts at 320, 390, 760, 810, 1000, 1024, 1440, and 1920 pixels have no horizontal overflow. Mobile preview/back shortcuts and shortcut visibility passed. Browser errors: zero; requests stayed local and used GET.
-- Screenshots and the cursor-visible recording were refreshed. Passenger-only fee scope and source discrepancies are documented in [FEES.md](FEES.md).
+- Screenshots and the cursor-visible recording were refreshed with no prices or cost selector.
 
 ## Earlier gallery browsing update
 

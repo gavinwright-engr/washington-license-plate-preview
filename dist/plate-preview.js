@@ -55,8 +55,8 @@
     let selected = PLATES[0];
     const pageSize = 6;
     let visibleLimit = pageSize;
-    let lastSpecial = 'throwback-plate';
-    const lastInGroup = new Map();
+    let plateType = 'standard';
+    let lastSpecial = null;
     let registrationMode = 'assigned';
     let showSample = false;
     let composing = false;
@@ -64,13 +64,13 @@
     let renderVersion = 0;
     let announcementTimer;
     const images = new Map();
-    const browsePlates = PLATES.slice().sort(function (a, b) {
-      const priority = ['standard', 'throwback-plate'];
+    const browsePlates = PLATES.filter(function (plate) { return plate.id !== 'standard'; }).sort(function (a, b) {
+      const priority = ['throwback-plate'];
       const aRank = priority.indexOf(a.id), bRank = priority.indexOf(b.id);
       if (aRank !== bRank && (aRank !== -1 || bRank !== -1)) return (aRank === -1 ? 2 : aRank) - (bRank === -1 ? 2 : bRank);
       return a.name.localeCompare(b.name);
     });
-    const categories = Array.from(new Set(PLATES.map(function (plate) { return plate.category; }))).sort();
+    const categories = Array.from(new Set(browsePlates.map(function (plate) { return plate.category; }))).sort();
 
     function element(tag, className, text) {
       const node = doc.createElement(tag);
@@ -85,8 +85,8 @@
       label.htmlFor = control.id;
       return label;
     }
-    function personalizable(plate) { return plate.personalization === 'personalizable'; }
-    function designType() { return selected.id === 'standard' ? 'standard' : 'special'; }
+    function personalizable(plate) { return !!plate && plate.personalization === 'personalizable'; }
+    function designType() { return plateType; }
     function eligibilityLabel(plate) {
       if (personalizable(plate)) return 'Personalization offered';
       if (plate.personalization === 'emblem-example') return 'Emblem example';
@@ -98,26 +98,26 @@
       announcementTimer = global.setTimeout(function () { if (!disposed) status.textContent = message; }, 450);
     }
 
-    function money(value) { return '$' + value; }
-    function feeFor(plate) { return catalog.feeGroups.find(function (group) { return group.id === plate.feeGroup; }); }
-    function priceText(group) {
-      const amount = group[registrationMode];
-      if (amount === null) return group.id === 'standard' ? 'Regular plate fees' : 'See DOL fees';
-      const renewal = group[registrationMode === 'assigned' ? 'renewalAssigned' : 'renewalPersonalized'];
-      return money(amount) + ' initial' + (renewal === null ? ' · confirm renewal with DOL' : ' · ' + money(renewal) + '/year');
-    }
     const backgroundChoices = element('fieldset', 'wpp-background-options');
     backgroundChoices.append(element('legend', 'wpp-heading', '1. Choose a plate type'));
     const backgroundGrid = element('div', 'wpp-background-grid');
     const backgroundRecords = [];
-    [['standard', 'Standard plate', 'Mountain background'], ['special', 'Special design', 'Browse designs by cost']].forEach(function (entry) {
+    [['standard', 'Standard plate', 'Mountain background'], ['special', 'Special plate', 'Choose a design']].forEach(function (entry) {
       const label = element('label', 'wpp-option');
       const radio = unowned(element('input', 'wpp-option-radio'));
       radio.type = 'radio'; radio.name = prefix + 'background'; radio.value = entry[0];
       const face = element('span', 'wpp-option-face');
       face.append(element('span', 'wpp-option-title', entry[1]), element('span', 'wpp-option-description', entry[2]));
       label.append(radio, face); backgroundGrid.append(label);
-      radio.addEventListener('change', function () { if (radio.checked) choose(entry[0] === 'standard' ? 'standard' : lastSpecial, true); });
+      radio.addEventListener('change', function () {
+        if (!radio.checked) return;
+        if (entry[0] === 'standard' || lastSpecial) choose(entry[0] === 'standard' ? 'standard' : lastSpecial, true);
+        else {
+          plateType = 'special'; selected = null; showSample = false;
+          records.forEach(function (record) { record.radio.checked = false; });
+          filterDesigns(false); update(true);
+        }
+      });
       backgroundRecords.push({radio: radio, value: entry[0]});
     });
     backgroundChoices.append(backgroundGrid);
@@ -125,7 +125,7 @@
     registrationChoices.append(element('legend', 'wpp-heading', '2. Choose characters'));
     const registrationGrid = element('div', 'wpp-registration-grid');
     const registrationRecords = [];
-    [['assigned', 'DOL assigned', 'Sample number'], ['personalized', 'Personalized', 'Your characters']].forEach(function (entry) {
+    [['assigned', 'Assigned', 'DOL chooses'], ['personalized', 'Custom', 'You choose']].forEach(function (entry) {
       const label = element('label', 'wpp-option');
       const radio = unowned(element('input', 'wpp-option-radio'));
       radio.type = 'radio'; radio.name = prefix + 'registration'; radio.value = entry[0];
@@ -142,18 +142,6 @@
     heading.id = prefix + 'gallery-heading';
     designs.setAttribute('aria-labelledby', heading.id);
     const toolbar = element('div', 'wpp-gallery-toolbar');
-    const cost = unowned(element('select', 'wpp-select wpp-cost-select'));
-    const costLabel = labelFor(cost, 'Cost group · passenger vehicle', 'cost');
-    const costOptions = [];
-    const otherCosts = element('optgroup'); otherCosts.label = 'Individual fees or eligibility';
-    catalog.feeGroups.filter(function (group) { return group.id !== 'standard'; }).forEach(function (group) {
-      const option = element('option'); option.value = group.id;
-      (group.assigned === null ? otherCosts : cost).append(option);
-      costOptions.push({option: option, group: group});
-    });
-    cost.append(otherCosts); cost.value = 'special';
-    const costGroup = element('div', 'wpp-cost-filter'); costGroup.append(costLabel, cost);
-    const costHint = element('p', 'wpp-hint', 'Registration and tabs are additional. Other vehicles have different fees.');
     const filters = element('div', 'wpp-filters');
     const search = unowned(element('input', 'wpp-search'));
     search.type = 'search'; search.autocomplete = 'off'; search.spellcheck = false;
@@ -179,12 +167,14 @@
     const records = [];
 
     const panel = element('section', 'wpp-panel');
+    const pendingPreview = element('div', 'wpp-pending-preview');
+    pendingPreview.append(element('h2', 'wpp-heading', 'Choose a special plate'), element('p', '', 'Select a design to preview it here.'));
     const panelHeading = element('h2', 'wpp-heading', 'Your plate preview');
     panel.id = prefix + 'preview'; panelHeading.tabIndex = -1;
     const previewName = element('h3', 'wpp-preview-name', selected.name);
     const mobileBar = element('div', 'wpp-mobile-bar');
     const mobileName = element('span', 'wpp-mobile-name');
-    const previewJump = element('button', 'wpp-preview-jump', 'Preview & personalize'); previewJump.type = 'button';
+    const previewJump = element('button', 'wpp-preview-jump', 'Preview & customize'); previewJump.type = 'button';
     const backToDesigns = element('button', 'wpp-back-designs', 'Back to designs'); backToDesigns.type = 'button';
     function reveal(target, focusTarget) {
       const reduceMotion = global.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -198,10 +188,6 @@
       mobileBar.hidden = entries[0].isIntersecting;
     }) : null;
     const badge = element('p', 'wpp-eligibility');
-    const feeSummary = element('p', 'wpp-fee-summary');
-    const feeLink = element('a', 'wpp-fee-link', 'DOL fee details'); feeLink.rel = 'noreferrer';
-    const feeScope = element('p', 'wpp-fee-scope', 'Passenger vehicle · registration and tabs extra');
-    const feeBox = element('div', 'wpp-fees'); feeBox.append(feeSummary, feeScope, feeLink);
     const registrationNote = element('p', 'wpp-registration-note');
     const stage = element('div', 'wpp-stage');
     const sourceImage = element('img', 'wpp-source-image'); sourceImage.draggable = false;
@@ -215,6 +201,7 @@
     let tabDateKey = '';
     const tabToggle = element('button', 'wpp-tabs-toggle'); tabToggle.type = 'button';
     function updateTabs() {
+      if (!selected) { tabButton.hidden = true; tabToggle.hidden = true; return; }
       const now = new Date();
       const month = now.getMonth();
       const year = now.getFullYear();
@@ -281,8 +268,8 @@
     const previewVisual = element('div', 'wpp-preview-visual');
     previewVisual.append(panelHeading, previewName, badge, stage, caption, previewActions);
     const previewSettings = element('div', 'wpp-preview-settings');
-    previewSettings.append(registrationChoices, controls, feeBox, official, approvalNote, previewDetails);
-    panel.append(backToDesigns, previewVisual, previewSettings, status);
+    previewSettings.append(registrationChoices, controls, official, approvalNote, previewDetails);
+    panel.append(pendingPreview, backToDesigns, previewVisual, previewSettings, status);
 
     function currentArtwork() {
       // Separate published/authorized artwork can capture a design change between
@@ -454,23 +441,29 @@
     }
 
     function update(shouldAnnounce) {
+      const standard = designType() === 'standard';
+      root.classList.toggle('wpp-standard-view', standard);
+      root.classList.toggle('wpp-awaiting-design', !selected);
+      designs.hidden = standard;
+      backgroundRecords.forEach(function (record) { record.radio.checked = record.value === designType(); });
+      pendingPreview.hidden = !!selected;
+      previewVisual.hidden = !selected; previewSettings.hidden = !selected;
+      if (!selected) {
+        renderVersion++;
+        input.disabled = true; size.disabled = true;
+        updateTabs();
+        if (shouldAnnounce) announce('Choose a special plate design to see its preview.');
+        return;
+      }
       const allowed = personalizable(selected);
       const custom = registrationMode === 'personalized';
       const active = allowed && custom;
       const result = validate(input.value, Number(size.value));
       const hasInput = input.value.length > 0;
       const artwork = currentArtwork();
-      const standard = designType() === 'standard';
-      root.classList.toggle('wpp-standard-view', standard);
-      designs.hidden = standard;
-      backgroundRecords.forEach(function (record) { record.radio.checked = record.value === designType(); });
-      costOptions.forEach(function (record) { record.option.textContent = record.group.name + ' — ' + priceText(record.group); });
-      feeSummary.textContent = priceText(feeFor(selected));
-      feeLink.href = standard && !custom ? 'https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates' : feeFor(selected).source;
-      feeScope.textContent = selected.feeGroup === 'standard' && !custom ? 'Cost depends on your vehicle and registration.' : catalog.feeBasis;
       previewName.textContent = selected.name;
       mobileName.textContent = selected.name;
-      badge.textContent = !allowed ? eligibilityLabel(selected) : (custom ? 'Personalized characters' : 'DOL-assigned characters');
+      badge.textContent = !allowed ? eligibilityLabel(selected) : (custom ? 'Custom characters' : 'DOL-assigned characters');
       registrationNote.textContent = custom ? 'Choose your preferred characters. Personalized lettering or layout can differ from the assigned-number sample.' : (allowed ? 'DOL assigns the next available number. This published sample illustrates the design; it is not your assigned number.' : 'View-only catalog entry. Follow its DOL requirements for characters or an existing plate. This published example does not assign a number.');
       registrationRecords.forEach(function (record) { record.radio.checked = record.value === registrationMode; });
       sizeGroup.hidden = !custom || !allowed; characterGroup.hidden = !custom;
@@ -508,7 +501,7 @@
     function filterDesigns(shouldAnnounce) {
       const query = search.value.trim().toLocaleLowerCase();
       const matching = browsePlates.filter(function (plate) {
-        return plate.feeGroup === cost.value && (category.value === 'All categories' || plate.category === category.value) &&
+        return (category.value === 'All categories' || plate.category === category.value) &&
           (plate.name + ' ' + plate.category).toLocaleLowerCase().includes(query);
       });
       const shown = matching.slice(0, visibleLimit);
@@ -520,18 +513,14 @@
       more.textContent = 'Show ' + Math.min(pageSize, matching.length - shown.length) + ' more designs';
       empty.hidden = matching.length !== 0;
       clearFilters.hidden = !query && category.value === 'All categories';
-      if (shouldAnnounce) announce(count.textContent + '. Selected: ' + selected.name + '.');
+      if (shouldAnnounce) announce(count.textContent + (selected ? '. Selected: ' + selected.name + '.' : '. Choose a design to preview.'));
     }
     function choose(id, shouldAnnounce) {
       const found = PLATES.find(function (plate) { return plate.id === id; });
       if (!found) throw new RangeError('Unknown plate design.');
       selected = found; showSample = false;
-      if (found.id !== 'standard') {
-        lastSpecial = found.id; lastInGroup.set(found.feeGroup, found.id);
-        if (cost.value !== found.feeGroup) {
-          cost.value = found.feeGroup; search.value = ''; category.value = 'All categories'; visibleLimit = pageSize;
-        }
-      }
+      plateType = found.id === 'standard' ? 'standard' : 'special';
+      if (found.id !== 'standard') lastSpecial = found.id;
       records.forEach(function (record) { record.radio.checked = record.data.id === id; });
       filterDesigns(false); update(shouldAnnounce);
     }
@@ -557,11 +546,6 @@
       cards.append(label); records.push({ data: data, label: label, radio: radio });
     });
     search.addEventListener('input', function () { visibleLimit = pageSize; filterDesigns(true); });
-    cost.addEventListener('change', function () {
-      search.value = ''; category.value = 'All categories'; visibleLimit = pageSize;
-      const first = browsePlates.find(function (plate) { return plate.feeGroup === cost.value; });
-      choose(lastInGroup.get(cost.value) || first.id, true);
-    });
     category.addEventListener('change', function () { visibleLimit = pageSize; filterDesigns(true); });
     clearFilters.addEventListener('click', function () { search.value = ''; category.value = 'All categories'; visibleLimit = pageSize; filterDesigns(true); search.focus(); });
     more.addEventListener('click', function () {
@@ -583,7 +567,7 @@
     size.addEventListener('change', function () { showSample = false; update(true); });
     reset.addEventListener('click', function () { input.value = ''; showSample = false; update(true); input.focus(); });
     toggle.addEventListener('click', function () { showSample = !showSample; update(true); });
-    toolbar.append(heading, costGroup, costHint, filters, resultsBar);
+    toolbar.append(heading, filters, resultsBar);
     designs.append(toolbar, cards, empty, more);
     layout.append(designs, panel); root.classList.add('wa-plate-preview'); root.replaceChildren(backgroundChoices, layout, mobileBar);
     if (previewObserver) previewObserver.observe(panel);
@@ -593,7 +577,7 @@
         if (disposed) throw new Error('This widget was destroyed.');
         const result = validate(input.value, Number(size.value));
         const active = registrationMode === 'personalized' && personalizable(selected);
-        return { designType: designType(), registrationMode: registrationMode, design: selected.id, characters: active ? result.text : '', limit: Number(size.value), personalizable: personalizable(selected), formatValid: active && result.valid };
+        return { designType: designType(), registrationMode: registrationMode, design: selected ? selected.id : null, characters: active ? result.text : '', limit: Number(size.value), personalizable: personalizable(selected), formatValid: active && result.valid };
       },
       selectDesign: function (id) { if (disposed) throw new Error('This widget was destroyed.'); choose(id, true); },
       selectRegistrationMode: function (mode) {
@@ -605,7 +589,7 @@
         if (mounted.get(root) !== controller) return;
         disposed = true; renderVersion++; global.clearTimeout(announcementTimer); global.clearInterval(tabTimer); doc.removeEventListener('visibilitychange', updateTabs); images.clear(); input.value = '';
         if (previewObserver) previewObserver.disconnect();
-        root.replaceChildren(); root.classList.remove('wa-plate-preview', 'wpp-standard-view'); mounted.delete(root);
+        root.replaceChildren(); root.classList.remove('wa-plate-preview', 'wpp-standard-view', 'wpp-awaiting-design'); mounted.delete(root);
       }
     });
     mounted.set(root, controller); return controller;
