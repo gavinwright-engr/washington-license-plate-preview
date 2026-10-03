@@ -1,0 +1,795 @@
+{
+  "retrievedOn": "2026-10-02",
+  "officialImages": [
+    {
+      "designId": "standard",
+      "file": "assets/official/standard.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/2026-09/plate-example-jimstoy_12x6_24.png",
+      "width": 1720,
+      "height": 809,
+      "sha256": "36f2ec0f69e0c3ea667ecea3c7b3005704c6aa903477fd64f4afae5e9839453f",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "standard",
+      "file": "assets/official/standard-2.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/2026-09/plate-example-2-step_12x6_24.png",
+      "width": 1720,
+      "height": 809,
+      "sha256": "e3af55fda6775890933e36e4c175de78f6f7254409783bae8140f728746125fa",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "standard",
+      "file": "assets/official/standard-3.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/2026-09/SAMPLE_plate.png",
+      "width": 332,
+      "height": 183,
+      "sha256": "58f6b0b9dbf7197c86909f34f098ca9bdfdfd885b937e3ae5ba524303dff451b",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "air-force",
+      "file": "assets/official/air-force.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/airforcePlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "17fb0ba62626a4eb4520fdccc5ca530820196ffb44ecaf1095b59e6da7920f71",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "army",
+      "file": "assets/official/army.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/armyPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "5ff1627d668ebe4cb15da9d662a988c9fdec66dcec6505dc7f88bcca881244b7",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "coast-guard",
+      "file": "assets/official/coast-guard.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/coastguardPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "4e318c629ee82ce54f18ce524cee86a8f7e046baea342a64fa99d8210f4fb112",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "marine-corps",
+      "file": "assets/official/marine-corps.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/marinesPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "faf83501bf42d5502e6bf1897577f712a64d5168470d6041c54f0f8ac56414db",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "national-guard",
+      "file": "assets/official/national-guard.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/NationalGuardPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "de080de943fcab5b0058a9d9b127c2f4c9b465b75a49ac342737d023e1cd6792",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "navy",
+      "file": "assets/official/navy.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/navyPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "4e40f5de551b82d062bc7411242598812afbc805746c1894d468aa024c54bc17",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "988-prevent-veteran-suicide-emblem",
+      "file": "assets/official/988-prevent-veteran-suicide-emblem.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/lifeline-plate.png",
+      "width": 400,
+      "height": 192,
+      "sha256": "c29e13b05616feb339c5922bdc7afa29e5bb8d891ca161d0513ec58e0d507e67",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "disabled-american-veteran",
+      "file": "assets/official/disabled-american-veteran.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/disabledVetPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "44227178af3d45da4293f26e7b394e11dae97e2a65963a7d0887b5ab6709c4ce",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "former-prisoner-war",
+      "file": "assets/official/former-prisoner-war.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/formerPOWplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "fcce7251546903479e361517938dd4cbc64c34f11c117ba5e0b7576b93170d97",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "gold-star",
+      "file": "assets/official/gold-star.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/goldstarPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "e5042c2526c388c836e400f83348851c501323c818e805d3e68bf2c0e98cfc11",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "medal-honor",
+      "file": "assets/official/medal-honor.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/MOHplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "b17417826209288b937ba694cc72f15bdb4909021e9bb50eb941bc09d7f87095",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "military-affiliate-radio-system-mars",
+      "file": "assets/official/military-affiliate-radio-system-mars.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/MARSplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "c66d038f5bd0e92a34ff9a623a63987546a5d430cd00eb28249fc870373b6660",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "purple-heart",
+      "file": "assets/official/purple-heart.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/purpleheartPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "d8c1c36f2506c924207d2f945bfd5b62dae7b0cd77ec9886eac3b4dc491474d2",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "veteranmilitary-service-award-emblems",
+      "file": "assets/official/veteranmilitary-service-award-emblems.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/vetemblems.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "1b9cb92d7748920ab92f49161c80df9023cfeca1e7e118eb3dc9ba0441fb7e82",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "4-h",
+      "file": "assets/official/4-h.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/4Hplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "467942429dc85f7c8077fbb802d6a91bb3da6156dc2cded694607cf61dde6883",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "breast-cancer",
+      "file": "assets/official/breast-cancer.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/Breast-cancer-plate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "aecd8e549a30355efa4c4edf31b16ee661133cbcb93cadbcb5eddf2d8f463f3d",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "ffa-foundation",
+      "file": "assets/official/ffa-foundation.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/FFAplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "8c1f2c167667ba8c73fc9bbae29c9642e8b7741be366471b9d8070a30587bd35",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "fred-hutchinson-cancer-center",
+      "file": "assets/official/fred-hutchinson-cancer-center.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/fred-hutchinson-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "f9aaef8e452b9d2fe836cdb4ab1695558a13d29bed0e41fcc1fa63a6bbe182f3",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "helping-kids-speak",
+      "file": "assets/official/helping-kids-speak.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/HelpingKidsSpeakPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "b58fce8e8e43e9472066bb96e028a4f5248e5c9741c998c0d0a8c10b5042c465",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "jp-patches-pal",
+      "file": "assets/official/jp-patches-pal.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/patches-pal-plate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "a5ef1a05541641280aa85bdd31ba40568624191409665e1ff335857596659680",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "keep-kids-safe",
+      "file": "assets/official/keep-kids-safe.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/KeepKidsSafePlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "95072304c35f5c258194f40f85e88248ca1addeabcc2397a1eba36981f591c2e",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washington-apple-commission",
+      "file": "assets/official/washington-apple-commission.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/WashingtonApplesPlate.jpg",
+      "width": 400,
+      "height": 190,
+      "sha256": "5a705f91d8cd9d676bf7fa977c0becca59187a69378efcb408e636778554fd36",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "we-love-our-pets",
+      "file": "assets/official/we-love-our-pets.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/petsPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "beb253d6d59b85d0fe3bdb9a0ceb0f1b1261593c4a14ecf28c757522066cf3cf",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "collector-vehicle",
+      "file": "assets/official/collector-vehicle.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/collector-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "39033117492a6cc4a0c44ba7890b44d0711c82750b0deed2d98a17cb87f599cd",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "horseless-carriage",
+      "file": "assets/official/horseless-carriage.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/HorselessCarriagePlate.png",
+      "width": 400,
+      "height": 199,
+      "sha256": "4151fca313176df7a8d6c3810ea1f6cffa5a72382c00a3fb77d770b728a41ffc",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "restored",
+      "file": "assets/official/restored.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/restoredPlate.jpg",
+      "width": 400,
+      "height": 165,
+      "sha256": "e485f847faf9fe4ab3bc5720ef9b3bf78b52a73227f185043488bed7456bb052",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "central-washington-university",
+      "file": "assets/official/central-washington-university.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/CWUplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "b9a378911969cc94f9663e330ac1a292c09713cf7091c917b22d17e000386e31",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "eastern-washington-university",
+      "file": "assets/official/eastern-washington-university.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/EWUplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "95c1c9cfe1deb4c47c6982aaf20ce8d3267bcad4d4b3647e823aed566c14836e",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "evergreen-state-college",
+      "file": "assets/official/evergreen-state-college.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/TESCplate.png",
+      "width": 400,
+      "height": 202,
+      "sha256": "38fc81509554a9327602f8c761d32317b017c8a305d2ef1d20ade6459ab6a986",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "gonzaga-university",
+      "file": "assets/official/gonzaga-university.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/gonzagaPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "616c0d6a5b09eaa982c27a07e3bf62e045b2ac033b186205a78939e8e37f430a",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-university",
+      "file": "assets/official/seattle-university.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/seattle-univ-plate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "84a43ad3572113c84e629ba80bfa9a31bd8b6880d5ecc39f0c89087a632ceab0",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "university-washington",
+      "file": "assets/official/university-washington.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/UWplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "29267c36e12c82752774baaeeeac4445821c5190d46c2ebdd3cbec72d2a40252",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washington-state-university",
+      "file": "assets/official/washington-state-university.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/WSUplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "be2c70cf9e0a383bfcd3dd77d3698f59992182a14cf992b10f069aff516be29c",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "western-washington-university",
+      "file": "assets/official/western-washington-university.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/WWUplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "2b81a946eadc23ef5033c079040ae11ccbc363c3c54541c5fde279bb474fd418",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "law-enforcement-memorial",
+      "file": "assets/official/law-enforcement-memorial.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/LEMplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "a4b0c3c81d9c51c96529c6fd3e1ab55813c1f33a013178e41c8bb6b274d38ef4",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "professional-firefighter",
+      "file": "assets/official/professional-firefighter.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/firefighterPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "8aedc4f226a5fd98fa767327ce307a2ecfb2e0d74235f1d86e748babfde0af43",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "volunteer-firefighter",
+      "file": "assets/official/volunteer-firefighter.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/VolunteerFirefighterPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "c395230784e778ef32d7c4b9d0ac9d7418208c80ffc94f6c9fde614bb47f7a72",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "endangered-wildlife-orca",
+      "file": "assets/official/endangered-wildlife-orca.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/orcaPlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "cca02378329dea74241e803638e76270973eb0bffd077b24707b3936f7fe586a",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "honeybees-and-pollinators",
+      "file": "assets/official/honeybees-and-pollinators.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/pollinator-plate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "19b28777b2303c7e8efec80e7bfa9c6dd3c2fdc527460954cf27d129c41c98ad",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "lighthouses",
+      "file": "assets/official/lighthouses.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/lighthousePlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "592ddc195d6fcb99acb36278f1d1e8585e5316a994e375194f96a3a7b4a45a99",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "mount-st-helens",
+      "file": "assets/official/mount-st-helens.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/mount-st-helens-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "5ef6629708859f1769226baf76c5830af8b7d1a57380ee6a64a9513df24762ce",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "san-juan-islands",
+      "file": "assets/official/san-juan-islands.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/SanJuanIslandsPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "73aad8164ab8197a5692a3b13e1d57be596697f83ac6bf9a389ae676d46623f6",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "smokey-bear",
+      "file": "assets/official/smokey-bear.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/smokey-bear-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "94076cfaace7cd055a4325424b2ac2345813186328cd7f94ba89dbe8b79503a2",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "state-flower",
+      "file": "assets/official/state-flower.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/StateFlowerPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "f388634e242d8afeeef80ac3cf1751bdf2e18f3164425cf9b65ae8716b559711",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washington-national-parks",
+      "file": "assets/official/washington-national-parks.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/NationalParksPlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "16797d46172fd7bb15f5db0b830babe03161925ea0848a493eb2b7e403e8cbaf",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washington-state-parks",
+      "file": "assets/official/washington-state-parks.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/StateParksPlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "dacee8f3d9f203b11c8efbdb5c5eac688af1e1fcfc8c1b9ae06123414b5d23d4",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washingtons-wildlife-bear",
+      "file": "assets/official/washingtons-wildlife-bear.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/bearPlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "52994d47a0ade57f3cc50578a2a4a89e1a0fffb559a6bfa4d33bf15802af5635",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washingtons-wildlife-deer",
+      "file": "assets/official/washingtons-wildlife-deer.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/deerPlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "f3cadef100c757aaf65459a621d1ca853cdbd53ba678fc0c9f767569ba79e376",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washingtons-wildlife-elk",
+      "file": "assets/official/washingtons-wildlife-elk.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/elkPlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "46d0f028f3dd9fd7845b29f09b8b18a282dcfddfadfce1ff5848584e5cbc5125",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washingtons-wildlife-steelhead",
+      "file": "assets/official/washingtons-wildlife-steelhead.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/SteelheadPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "9431afca1c02e11f9fc87dbb64cb3ed60c8cff003fc7dad0e59ec78066d66a11",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "wild-washington-eagle",
+      "file": "assets/official/wild-washington-eagle.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/eaglePlate.jpg",
+      "width": 400,
+      "height": 191,
+      "sha256": "e8a306f15605d6b3a7564dee7d2d6bd91d923a261d4c3fceefbaa54d1911c1e7",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "amateur-radio-operator-ham",
+      "file": "assets/official/amateur-radio-operator-ham.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/HAMplate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "8eaa5711f746263b69361e35ca113da551bfe7fe818f43644363be569bd094f7",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "fly-washington-aviation",
+      "file": "assets/official/fly-washington-aviation.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/AviationPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "f43d60572dff94507523f926075aca4c41c5bd14cfab348b736de40d9b647aeb",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "keep-wa-evergreen",
+      "file": "assets/official/keep-wa-evergreen.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/keep-wa-evergreen-plate.png",
+      "width": 400,
+      "height": 192,
+      "sha256": "ae190e9f5e258157d3e43f5cc64876bfc1c35f75cba17ba1ca0ebcaf9b115136",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "lemay-americas-car-museum",
+      "file": "assets/official/lemay-americas-car-museum.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/lemay-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "28682d5e5857dfe613558d9c72e6c6e0563c0bc26df7296356f2f4df96674701",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "music-matters",
+      "file": "assets/official/music-matters.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/musicPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "f628754e796b8c32498ab0519d0cff459046411241e11d5e91045b594d42d668",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "share-road",
+      "file": "assets/official/share-road.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/ShareRoadPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "db3e5b93708b276dbe587738808da831584f4142b721f606afccd29b999ffc5c",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "square-dancer",
+      "file": "assets/official/square-dancer.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/squaredancePlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "316f44884648fe3df9365ba7f2a9bf26048ec5a35fed705240cf33232d5efaa0",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "throwback-plate",
+      "file": "assets/official/throwback-plate.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/throwback-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "d770329a74887dc0bf16eca99ca747003cc7bcde12245171a5c9665d0d732eb0",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "washington-wine-commission",
+      "file": "assets/official/washington-wine-commission.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/wine-country-plate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "cf23821b878ed3770b6ae898cd619bf00e8e32f59a91d5deed2f1ca774675b9c",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-kraken",
+      "file": "assets/official/seattle-kraken.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/kraken-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "72830e77e04c917a183aa09e3d0b9142c8dc488a2c00e2260a75404a452fa84a",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-mariners",
+      "file": "assets/official/seattle-mariners.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/marinersPlate.png",
+      "width": 356,
+      "height": 191,
+      "sha256": "3ba26ed79ea8ece311d989ccadd1ad20632ec2b400b40bbc4c3138430763e063",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-seahawks",
+      "file": "assets/official/seattle-seahawks.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/seahawks-throwback-plate.png",
+      "width": 400,
+      "height": 193,
+      "sha256": "a0317688085a30b911b25f3062e79aae7776a4fb9aaddc9e571e8c38df00bbf5",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-seahawks",
+      "file": "assets/official/seattle-seahawks-2.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/2026-09/seahawks-throwback-plate.png",
+      "width": 400,
+      "height": 193,
+      "sha256": "62da4f28aca579cc709f7b04c2eea77627d0ed1438ece89f5a4013730e2f554b",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-sounders-fc",
+      "file": "assets/official/seattle-sounders-fc.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/sounders-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "08b7330150fec3763767ba8b5d125d71b7dc840327f9d1793e6766c7bc3d242e",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "seattle-storm",
+      "file": "assets/official/seattle-storm.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/stormPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "d8634a0389e0e9b261721f912c9ab8e751f76e38b00052dcc601fc3eaf204130",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "ski-and-ride",
+      "file": "assets/official/ski-and-ride.jpg",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/skiPlate.jpg",
+      "width": 400,
+      "height": 199,
+      "sha256": "461de9662ad327dd48ab93808c573242f13d7d33577672be92cf920c129f0858",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "state-sport-pickleball",
+      "file": "assets/official/state-sport-pickleball.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/pickleball-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "fae6fb2f063c17dacc9b09959b18aac58a5c574329a8aea84db794a378823cdc",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "tennis",
+      "file": "assets/official/tennis.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/TennisPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "09538bbbcf9257a763f00967f46e9911bc089529010585deea2bda12ee1f6c8c",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "wrestling",
+      "file": "assets/official/wrestling.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/WrestlingPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "79e74b625ecf1fa78090e975c7a69ffc15e5b1c672f782e93816d0bb1d54e1eb",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "chehalis-tribe",
+      "file": "assets/official/chehalis-tribe.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/chehalis-tribe-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "3f70d823f2e1081593637c4490f6b4c76a8a29abbcc4ea2d892fff22ebd74da2",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "muckleshoot-tribe",
+      "file": "assets/official/muckleshoot-tribe.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/muckleshoot-tribe-plate.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "3018e68d5731f29cc2666399672a34120284ae68dba131d6e4401fa312e35418",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "puyallup-tribe",
+      "file": "assets/official/puyallup-tribe.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/puyallup-tribe-plate_0.png",
+      "width": 400,
+      "height": 190,
+      "sha256": "fabce1114b0189395daf43edeaa4768fb90da0457200f5a5d98c8b8c7b504448",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "disabled-parking",
+      "file": "assets/official/disabled-parking.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/DisabledParkingPlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "38a861fb64354168e07f946433c0c7d8f604136837e02068d15792daf9c6e83d",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "rideshare",
+      "file": "assets/official/rideshare.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/plates/ridesharePlate.png",
+      "width": 400,
+      "height": 191,
+      "sha256": "69221b4b63ba96e63f9581f62a88637b1ee90082277a246620b3cd1aef7529fc",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    },
+    {
+      "designId": "standard-motorcycle",
+      "file": "assets/official/standard-motorcycle.png",
+      "sourceUrl": "https://dol.wa.gov/sites/default/files/2026-09/plate-example-hogwild_12x6.png",
+      "width": 978,
+      "height": 529,
+      "sha256": "4b98f083cc227534ace2681ea26ea7cd5106a6c51826ff1167c3cc8bfe4d65a9",
+      "rights": "Official published DOL sample; not covered by the project MIT license.",
+      "bytesUnchanged": true
+    }
+  ]
+}

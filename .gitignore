@@ -1,0 +1,6 @@
+.sites-runtime/
+*.tar.gz
+__pycache__/
+.DS_Store
+.openai/
+dist/wa-plate-preview.zip

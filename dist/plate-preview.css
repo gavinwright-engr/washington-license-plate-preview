@@ -1,0 +1,83 @@
+/* SPDX-License-Identifier: MIT. Widget selectors are scoped; font names are unique. */
+@font-face { font-family: 'WPP Montserrat'; src: url('assets/fonts/montserrat-latin.woff2') format('woff2'); font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Plate'; src: url('assets/fonts/bebas-neue.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Plate Rounded'; src: url('assets/fonts/barlow-condensed.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+/* Renamed local ASCII subsets; source attribution and complete licenses are adjacent. */
+@font-face { font-family: 'WPP Registration Standard'; src: url('assets/fonts/wpp-registration-standard-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Registration Curve'; src: url('assets/fonts/wpp-registration-curve-500.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Registration Curve'; src: url('assets/fonts/wpp-registration-curve-600.woff2') format('woff2'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Registration Narrow'; src: url('assets/fonts/wpp-registration-narrow-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Registration Mono'; src: url('assets/fonts/wpp-registration-mono-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'WPP Registration Round'; src: url('assets/fonts/wpp-registration-round-400.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+.wa-plate-preview { --wpp-blue: #155c91; --wpp-green: #0a5e2e; --wpp-ink: #1b1b1b; --wpp-muted: #505050; --wpp-error: #a42623; color: var(--wpp-ink); font-family: 'WPP Montserrat', Montserrat, sans-serif; font-size: 16px; line-height: 1.5; text-align: left; }
+.wa-plate-preview *, .wa-plate-preview *::before, .wa-plate-preview *::after { box-sizing: border-box; }
+.wa-plate-preview [hidden] { display: none !important; }
+.wa-plate-preview :is(button,input,select) { font: inherit; }
+.wa-plate-preview :is(button,select) { cursor: pointer; }
+.wa-plate-preview :is(button,input,select,a):focus-visible { outline: 3px solid #005ea2; outline-offset: 3px; }
+.wa-plate-preview :is(input,select):disabled { cursor: default; background: #eee; color: #555; }
+.wa-plate-preview a { color: var(--wpp-blue); text-underline-offset: 3px; }
+.wa-plate-preview a:hover { color: #057738; }
+.wa-plate-preview .wpp-options { padding: 0; margin: 0 0 28px; border: 0; min-width: 0; }
+.wa-plate-preview .wpp-option-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.wa-plate-preview .wpp-option { position: relative; min-width: 0; cursor: pointer; }
+.wa-plate-preview .wpp-option-radio { position: absolute; top: 18px; left: 14px; width: 17px; height: 17px; margin: 0; accent-color: var(--wpp-blue); }
+.wa-plate-preview .wpp-option-face { display: block; height: 100%; border: 2px solid #c9d3db; border-radius: 4px; padding: 14px 14px 14px 42px; background: #fff; }
+.wa-plate-preview .wpp-option-title { display: block; font-size: 14px; font-weight: 700; line-height: 1.5; }
+.wa-plate-preview .wpp-option-description { display: block; margin-top: 6px; color: var(--wpp-muted); font-size: 12px; line-height: 1.5; }
+.wa-plate-preview .wpp-option:hover .wpp-option-face { border-color: #7d9eb7; }
+.wa-plate-preview .wpp-option-radio:checked + .wpp-option-face { border-color: var(--wpp-blue); background: #eef6fa; }
+.wa-plate-preview .wpp-option-radio:focus-visible { outline: none; }
+.wa-plate-preview .wpp-option-radio:focus-visible + .wpp-option-face { outline: 3px solid #005ea2; outline-offset: 2px; }
+.wa-plate-preview .wpp-layout { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: 28px; align-items: start; }
+.wa-plate-preview .wpp-layout--standard { grid-template-columns: minmax(0,1fr); max-width: 680px; margin-inline: auto; }
+.wa-plate-preview .wpp-heading { color: var(--wpp-blue); margin: 0 0 12px; font-size: 25px; line-height: 1.25; font-weight: 700; }
+.wa-plate-preview .wpp-muted { font-size: 14px; color: var(--wpp-muted); margin: 0 0 16px; }
+.wa-plate-preview .wpp-filters { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin: 22px 0 12px; }
+.wa-plate-preview .wpp-label { display: block; font-weight: 700; font-size: 13px; margin: 0 0 6px; }
+.wa-plate-preview .wpp-search, .wa-plate-preview .wpp-select { width: 100%; min-height: 44px; border: 1px solid #767676; border-radius: 0; background: #fff; color: var(--wpp-ink); padding: 9px 10px; font-size: 13px; }
+.wa-plate-preview .wpp-search::placeholder { color: #595959; }
+.wa-plate-preview .wpp-result-count { font-size: 12px; color: var(--wpp-muted); margin: 0 0 12px; }
+.wa-plate-preview .wpp-design-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; max-height: 638px; overflow: auto; padding: 4px 8px 4px 4px; margin: 0 -4px; border: 0; min-width: 0; scrollbar-gutter: stable; }
+.wa-plate-preview .wpp-design-card { position: relative; display: block; cursor: pointer; min-width: 0; }
+.wa-plate-preview .wpp-design-radio { position: absolute; top: 11px; left: 10px; width: 17px; height: 17px; margin: 0; accent-color: var(--wpp-blue); }
+.wa-plate-preview .wpp-card-face { display: block; background: #fff; border: 2px solid #e3e3e3; border-radius: 4px; padding: 30px 12px 12px; min-height: 175px; }
+.wa-plate-preview .wpp-design-card:hover .wpp-card-face { border-color: #7d9eb7; }
+.wa-plate-preview .wpp-design-radio:checked + .wpp-card-face { border-color: var(--wpp-blue); background: #eef6fa; }
+.wa-plate-preview .wpp-design-radio:focus-visible { outline: none; }
+.wa-plate-preview .wpp-design-radio:focus-visible + .wpp-card-face { outline: 3px solid #005ea2; outline-offset: 2px; }
+.wa-plate-preview .wpp-card-image { width: 100%; height: 83px; display: block; object-fit: contain; }
+.wa-plate-preview .wpp-card-title { display: block; margin: 10px 0 5px; font-size: 13px; font-weight: 700; line-height: 1.4; }
+.wa-plate-preview .wpp-card-category { display: block; color: #505050; font-size: 11px; line-height: 1.4; }
+.wa-plate-preview .wpp-mobile-picker { display: none; }
+.wa-plate-preview .wpp-empty { font-size: 14px; padding: 20px; background: #f0f0f0; }
+.wa-plate-preview .wpp-clear-filters, .wa-plate-preview .wpp-reset, .wa-plate-preview .wpp-sample-toggle { display: block; border: 0; background: transparent; color: var(--wpp-blue); text-decoration: underline; text-underline-offset: 3px; padding: 9px 0; min-height: 38px; font-size: 13px; }
+.wa-plate-preview .wpp-panel { position: sticky; top: 16px; border: 1px solid #b8cbd7; border-top: 4px solid var(--wpp-blue); padding: 22px; background: #fff; }
+.wa-plate-preview .wpp-panel .wpp-heading { margin-bottom: 18px; }
+.wa-plate-preview .wpp-preview-name { font-size: 17px; font-weight: 700; margin: 0 0 5px; line-height: 1.4; }
+.wa-plate-preview .wpp-eligibility { color: #505050; font-size: 12px; margin: 0 0 16px; }
+.wa-plate-preview .wpp-stage { display: flex; align-items: center; justify-content: center; padding: 18px; min-height: 170px; background: #f0f0f0; }
+.wa-plate-preview .wpp-source-image, .wa-plate-preview .wpp-canvas { display: block; width: 100%; height: auto; max-height: 270px; object-fit: contain; }
+.wa-plate-preview .wpp-caption { color: #505050; font-size: 11px; margin: 10px 0 12px; line-height: 1.5; }
+.wa-plate-preview .wpp-registration-note { font-size: 12px; line-height: 1.6; margin: 0 0 16px; }
+.wa-plate-preview .wpp-variant-note { font-size: 11px; line-height: 1.6; padding: 10px; margin: 0 0 16px; background: #f0f0f0; color: var(--wpp-muted); }
+.wa-plate-preview .wpp-sample-toggle { margin-top: -8px; margin-bottom: 13px; }
+.wa-plate-preview .wpp-label-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 19px; }
+.wa-plate-preview .wpp-counter { color: #505050; font-size: 12px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.wa-plate-preview .wpp-input { display: block; width: 100%; border: 1px solid #767676; min-height: 54px; border-radius: 0; background: #fff; padding: 10px 12px; color: #1b1b1b; font-family: ui-monospace,monospace; font-size: 23px; letter-spacing: .07em; }
+.wa-plate-preview .wpp-input::placeholder { color: #595959; font-size: 18px; }
+.wa-plate-preview .wpp-input[aria-invalid='true'] { border: 2px solid var(--wpp-error); }
+.wa-plate-preview .wpp-hint { color: #505050; font-size: 11px; margin: 7px 0 0; line-height: 1.5; }
+.wa-plate-preview .wpp-feedback { font-size: 12px; min-height: 36px; margin: 12px 0 16px; line-height: 1.5; color: #1b1b1b; }
+.wa-plate-preview .wpp-feedback--error { color: var(--wpp-error); }
+.wa-plate-preview .wpp-official-link { display: block; background: var(--wpp-blue); color: #fff; text-align: center; padding: 12px; border-radius: 4px; font-weight: 700; font-size: 14px; text-decoration: none; }
+.wa-plate-preview .wpp-official-link:hover { background: #0e456e; color: #fff; }
+.wa-plate-preview .wpp-details-link { display: block; margin: 12px 0; font-size: 12px; }
+.wa-plate-preview .wpp-official-note { font-size: 11px; color: #505050; margin: 0; }
+.wa-plate-preview .wpp-artwork-note { font-size: 11px; color: #505050; padding-top: 16px; margin: 18px 0 0; border-top: 1px solid #ccc; line-height: 1.6; }
+.wa-plate-preview .wpp-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 1000px) { .wa-plate-preview .wpp-layout { gap: 20px; } .wa-plate-preview .wpp-panel { padding: 18px; } .wa-plate-preview .wpp-filters { grid-template-columns: minmax(0,1fr); gap: 12px; } }
+@media (max-width: 720px) { .wa-plate-preview .wpp-layout { grid-template-columns: minmax(0,1fr); gap: 28px; } .wa-plate-preview .wpp-design-grid { display: none; } .wa-plate-preview .wpp-mobile-picker { display: block; } .wa-plate-preview .wpp-filters { grid-template-columns: repeat(2,minmax(0,1fr)); } .wa-plate-preview .wpp-panel { position: static; padding: 20px; } }
+@media (max-width: 390px) { .wa-plate-preview .wpp-filters { grid-template-columns: minmax(0,1fr); } .wa-plate-preview .wpp-stage { padding: 10px; min-height: 140px; } }
+@media (max-width: 600px) { .wa-plate-preview .wpp-option-grid { grid-template-columns: minmax(0,1fr); } }
+@media (forced-colors: active) { .wa-plate-preview .wpp-source-image, .wa-plate-preview .wpp-canvas { forced-color-adjust: none; } .wa-plate-preview .wpp-design-radio:checked + .wpp-card-face { outline: 2px solid Highlight; } }

@@ -1,0 +1,130 @@
+{
+  "capture_date": "2026-10-03",
+  "url": "http://127.0.0.1:4176/wa-plate-preview/dist/",
+  "browser": "151.0.7922.173",
+  "events": [
+    {
+      "seconds": 1.04,
+      "action": "Landing: standard plate with genuine DOL SAMPLE artwork"
+    },
+    {
+      "seconds": 6.42,
+      "action": "Standard plate with custom characters"
+    },
+    {
+      "seconds": 11.24,
+      "action": "Standard personalized I1O0WA: barred I and independently fitted glyphs"
+    },
+    {
+      "seconds": 13.42,
+      "action": "Return to genuine standard SAMPLE artwork"
+    },
+    {
+      "seconds": 16.81,
+      "action": "Custom design with DOL-assigned characters: Throwback WA and SMPLE"
+    },
+    {
+      "seconds": 21.28,
+      "action": "Custom design with custom characters: Throwback PNW VIB without WA prefix"
+    },
+    {
+      "seconds": 24.75,
+      "action": "Compare Throwback assigned layout again"
+    },
+    {
+      "seconds": 27.14,
+      "action": "Return to retained personalized Throwback characters"
+    },
+    {
+      "seconds": 29.17,
+      "action": "View original published DOL sample"
+    },
+    {
+      "seconds": 35.18,
+      "action": "Sports: Kraken SMPLE preview with a deep-M licensed substitute"
+    },
+    {
+      "seconds": 38.4,
+      "action": "Compare Kraken with original DOL sample"
+    },
+    {
+      "seconds": 44.32,
+      "action": "Professional Firefighter SMPLE preview with a conventional-M licensed substitute"
+    },
+    {
+      "seconds": 47.75,
+      "action": "Compare Professional Firefighter with original DOL sample"
+    },
+    {
+      "seconds": 53.93,
+      "action": "Search collector: browse-only Collector Vehicle"
+    },
+    {
+      "seconds": 58.54,
+      "action": "Return to personalized Throwback"
+    },
+    {
+      "seconds": 63.24,
+      "action": "Read local-only preview limits, source credits, and community-demo footer"
+    }
+  ],
+  "demo.mp4": {
+    "size_bytes": 3536087,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "width": 1440,
+          "height": 1400,
+          "avg_frame_rate": "25/1"
+        }
+      ],
+      "format": {
+        "duration": "66.720000"
+      }
+    }
+  },
+  "demo.gif": {
+    "size_bytes": 4563213,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "gif",
+          "width": 720,
+          "height": 700,
+          "avg_frame_rate": "50/7"
+        }
+      ],
+      "format": {
+        "duration": "66.710000"
+      }
+    }
+  },
+  "capture_method": "Actual Chromium browser screenshots and WebM screen recording, converted by FFmpeg; no synthetic animation or overlays.",
+  "interaction_time_origin": "Seconds after initial navigation began; timestamps are approximate relative to the recorded video.",
+  "reduced_motion": true,
+  "screenshots": {
+    "desktop.png": {
+      "width": 1440,
+      "height": 2387,
+      "size_bytes": 450872,
+      "plate": "throwback-plate",
+      "characters": "PNW VIB",
+      "option": "special-personalized",
+      "category": "Special interest"
+    },
+    "mobile.png": {
+      "width": 390,
+      "height": 3498,
+      "size_bytes": 230040,
+      "plate": "throwback-plate",
+      "characters": "PNW VIB",
+      "option": "special-personalized",
+      "category": "Special interest"
+    }
+  }
+}

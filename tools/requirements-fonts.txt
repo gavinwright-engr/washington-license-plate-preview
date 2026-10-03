@@ -1,0 +1,4 @@
+# Optional development dependencies for reproducing bundled fonts.
+# The website itself has no Python or font-processing dependency.
+fonttools==4.57.0
+Brotli==1.1.0

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Community contribution: browse all Washington DOL special plate designs and preview preferred characters. Local, dependency-free code with DOL-style typography.">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Washington plate preview · Community demonstration</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='6' width='28' height='20' rx='3' fill='%23155c91'/%3E%3Cpath d='M6 12h20M6 20h20' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="plate-preview.css">
+  <link rel="stylesheet" href="demo.css">
+  <script src="plate-catalog.js" defer></script>
+  <script src="plate-preview.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#preview">Skip to plate preview</a>
+  <div class="community-banner"><div class="banner-inner">Community demonstration · Not an official Washington state government service</div></div>
+  <header>
+    <div class="masthead-inner">
+      <a class="brand" href="./" aria-label="Washington plate preview home"><small>WASHINGTON STATE · COMMUNITY CONTRIBUTION</small><strong>PLATE PREVIEW</strong></a>
+      <nav class="utility-links" aria-label="Project links"><a href="#about">About this addition</a><a href="wa-plate-preview.zip" download="wa-plate-preview.zip">Download free source code</a></nav>
+    </div>
+    <nav class="site-nav" aria-label="DOL reference navigation"><div class="nav-inner">
+      <a rel="noreferrer" href="https://dol.wa.gov/driver-licenses-and-permits">Driver licenses and permits</a>
+      <a rel="noreferrer" href="https://dol.wa.gov/id-cards">ID cards</a>
+      <a class="current" rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats">Vehicles and boats</a>
+      <a rel="noreferrer" href="https://dol.wa.gov/businesses-and-professions">Businesses and professions</a>
+      <a rel="noreferrer" href="https://dol.wa.gov/appointments-and-locations">Appointments and locations</a>
+    </div></nav>
+  </header>
+  <nav class="breadcrumbs" aria-label="Breadcrumb"><a rel="noreferrer" href="https://dol.wa.gov/">DOL home</a><span class="separator" aria-hidden="true">›</span><a rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates">License plates</a><span class="separator" aria-hidden="true">›</span><span aria-current="page">Plate preview demonstration</span></nav>
+  <div class="page-layout">
+    <aside class="page-sidebar" aria-label="On this page">
+      <h2>On this page</h2>
+      <ul class="side-links"><li><a class="active" href="#preview">Preview your plate</a></li><li><a rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates/special-design-plates">Official plate catalog</a></li><li><a rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates/personalized-plates">Personalized plate rules</a></li><li><a href="#about">About the free code</a></li></ul>
+      <p class="sidebar-note">Uses the designs and images published by Washington DOL. Catalog checked October 2, 2026.</p>
+    </aside>
+    <main class="page-content">
+      <div class="page-title"><h1>Preview your license plate</h1><p class="lead">Choose a standard or custom plate design with DOL-assigned or personalized characters.</p></div>
+      <div class="info-box"><strong>Preview only.</strong> DOL determines plate availability, eligibility, and final approval. Designs that cannot be personalized remain available to view.</div>
+      <div id="preview" data-wa-plate-preview>
+        <p>The live preview requires JavaScript. You can still <a rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates/special-design-plates">browse DOL’s official plate catalog</a> and <a rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates/personalized-plates">read the personalized plate rules</a>.</p>
+      </div>
+      <section class="about" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">A free addition for an existing website</h2>
+        <p>This community contribution uses plain HTML, scoped CSS, and JavaScript. It includes the complete published catalog, unchanged original sample images, locally hosted fonts, integration guidance, and source attribution. There are no accounts, trackers, saved preferences, or background availability checks.</p>
+        <p>The code is MIT licensed. Official artwork and open-license fonts retain their separate rights. The original samples are exact copies; customized lettering and reconstructed background pixels are approximate until DOL provides approved blank templates and the manufacturing font.</p>
+        <a class="download" href="wa-plate-preview.zip" download="wa-plate-preview.zip">Download the source project</a>
+      </section>
+    </main>
+  </div>
+  <footer class="site-footer"><div class="footer-inner"><p>Independent community demonstration. Official artwork belongs to its respective rights holders.</p><a rel="noreferrer" href="https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates/special-design-plates">Visit the official Washington DOL catalog</a></div></footer>
+</body>
+</html>
