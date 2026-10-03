@@ -1,6 +1,6 @@
 # Asset licenses and rights
 
-The project's [MIT license](LICENSE) applies to its original code, documentation, catalogue metadata, and rendering configuration. It **does not apply to the official DOL images or bundled font files**. Including these materials in this public reference repository and agency-review package does not change their rights or imply that their owners endorse this contribution.
+The project's [MIT license](LICENSE) applies to its original code, documentation, catalogue metadata, and rendering configuration. It **does not apply to the official DOL images or bundled font files**. Including these materials in this repository does not change their rights or imply endorsement by their owners.
 
 ## Official DOL images
 
@@ -8,7 +8,7 @@ The project's [MIT license](LICENSE) applies to its original code, documentation
 
 No explicit official-image redistribution license was found in the inspected pages or assets. The sample images, logos, emblems, and represented designs retain the rights of their respective owners. Public availability is not treated as a public-domain declaration or a blanket reuse grant.
 
-The originals are included as reference samples for **review of the proposed DOL addition**. Their presence in this public repository is not a grant of redistribution or deployment rights. Before independent public deployment or redistribution, confirm applicable permissions with DOL and relevant rights holders, or replace the assets with authorized material. DOL can supply authorized blank templates and confirm the appropriate rights for its own integration. Such replacements retain their applicable permissions; they are not relicensed as MIT.
+The originals are included as reference samples. Their presence in this public repository is not a grant of redistribution or deployment rights. Before independent public deployment or redistribution, confirm applicable permissions with DOL and relevant rights holders, or replace the assets with authorized material. Replacement assets retain their applicable permissions; they are not relicensed as MIT.
 
 The same separate artwork and mark rights apply to the official designs visible in `docs/media/` screenshots and demo recordings. The MIT license for the project's original documentation does not relicense depicted third-party artwork.
 

@@ -143,4 +143,4 @@ The property does not download an arbitrary font URL or execute its contents as 
 
 `assets/ASSET-MANIFEST.json` records all 79 source URLs and SHA-256 hashes. Original images are exact downloaded responses, with no metadata stripping, cropping, recoloring, or saved sample-removal operation. Only the transient Canvas view and separate HTML preview-tab overlay change. Compare source files and visual output when updating the catalogue. Current automated and browser evidence belongs in [VERIFICATION.md](VERIFICATION.md).
 
-No official-image redistribution license was found in the inspected sources. These images are bundled for agency review with rights retained; see [ASSET-LICENSES.md](../ASSET-LICENSES.md) before separate deployment or redistribution.
+No official-image redistribution license was found in the inspected sources. These reference images retain their owners' rights; see [ASSET-LICENSES.md](../ASSET-LICENSES.md).
