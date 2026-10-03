@@ -85,6 +85,10 @@ Selecting a gallery card or calling `selectDesign()` updates the preview while r
 
 An empty supported personalized option shows the approximate personalized layout with the sample text removed, ready for candidate entry. Its original-sample comparison control is available before typing as well as afterward.
 
+Character input stops at the current six- or seven-character limit. Attempts to exceed it show a red border and message while retaining the accepted characters in the preview. Paste inserts only the portion that fits, taking selected text into account. A subsequent accepted edit clears the limit warning; switching to the smaller size trims excess characters and reports that limit. Unsupported characters still receive format feedback. `formatValid` describes the retained value, not the rejected keystroke.
+
+If artwork or fonts cannot load, the official sample remains visible with a **Retry preview** action. Failed image loads are removed from the local promise cache so retrying can recover after connectivity returns. Rendering diagnostics include the error name/message, not candidate text.
+
 Switching options or selecting an unsupported design keeps the candidate in the current page so it returns when a supported personalized option is selected. This retained value is excluded from `getState()` while inactive. It is not saved to storage or sent elsewhere; existing host-page scripts can still read DOM input. Clearing or destroying the widget removes the candidate.
 
 ## Preview tabs
@@ -97,7 +101,7 @@ Visibility survives design/mode changes in the current instance but is not saved
 
 The catalogue contains 75 entries: 73 actual plate designs (one standard and 72 special) and two emblem examples. Sixty-three document personalization. The other entries remain viewable with character/size entry disabled: nine excluded designs, two emblem examples, and Rideshare whose personalization option is not documented. See [SOURCES.md](SOURCES.md).
 
-Standard is a separate plate-type choice. The special gallery contains the other 74 entries. Throwback comes first, followed by names alphabetically. Search and category filter across all special entries. Six results appear initially; **Show more designs** reveals six more and focuses the first new card. Filtering preserves the selected plate and candidate. Standard/special switching restores the last special selection and keeps gallery filters.
+Standard is a separate plate-type choice. All 74 special entries display by default, under 11 alphabetical category headings with subtle separators. Names are alphabetical within each category, with Throwback first within Special interest. Search matches name and category and shows every matching entry immediately; categories with no matches disappear. The category filter narrows the same visible groups. Filtering preserves the selected plate and candidate. Standard/special switching restores the last special selection and keeps gallery filters.
 
 Desktop uses three columns with thumbnails capped at 160 pixels, ordinary page scrolling, and a compact preview sidebar. Narrower windows use a full-width gallery with three columns, or two on phones, and a **Preview & customize** shortcut; **Back to designs** returns focus to search. The shortcut hides while the preview is in view and throughout standard mode. Native radio arrows select adjacent visible designs.
 

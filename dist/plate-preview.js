@@ -53,13 +53,12 @@
       throw new TypeError('assetBase must be a local directory ending with /, without .. or a host.');
     }
     let selected = PLATES[0];
-    const pageSize = 6;
-    let visibleLimit = pageSize;
     let plateType = 'standard';
     let lastSpecial = null;
     let registrationMode = 'assigned';
     let showSample = false;
     let composing = false;
+    let limitAttempted = false;
     let disposed = false;
     let renderVersion = 0;
     let announcementTimer;
@@ -156,15 +155,23 @@
     const categoryGroup = element('div', 'wpp-filter-field'); categoryGroup.append(categoryLabel, category);
     filters.append(searchGroup, categoryGroup);
     const count = element('p', 'wpp-result-count');
-    const cards = element('fieldset', 'wpp-design-grid');
+    const cards = element('fieldset', 'wpp-design-list');
     cards.id = prefix + 'design-grid';
     cards.append(element('legend', 'wpp-sr-only', 'Plate design'));
     const empty = element('p', 'wpp-empty', 'No designs match these filters. Try another name or category.');
     empty.hidden = true;
     const clearFilters = element('button', 'wpp-clear-filters', 'Clear filters'); clearFilters.type = 'button'; clearFilters.hidden = true;
     const resultsBar = element('div', 'wpp-results-bar'); resultsBar.append(count, clearFilters);
-    const more = element('button', 'wpp-show-more'); more.type = 'button'; more.setAttribute('aria-controls', cards.id);
     const records = [];
+    const categoryGroups = new Map();
+    categories.forEach(function (name, index) {
+      const section = element('section', 'wpp-category-group');
+      const title = element('h3', 'wpp-category-heading', name); title.id = prefix + 'category-' + index;
+      section.setAttribute('aria-labelledby', title.id);
+      const grid = element('div', 'wpp-design-grid');
+      section.append(title, grid); cards.append(section);
+      categoryGroups.set(name, {section: section, grid: grid});
+    });
 
     const panel = element('section', 'wpp-panel');
     const pendingPreview = element('div', 'wpp-pending-preview');
@@ -235,6 +242,7 @@
     const caption = element('p', 'wpp-caption');
     const variantNote = element('p', 'wpp-variant-note'); variantNote.hidden = true;
     const toggle = element('button', 'wpp-sample-toggle'); toggle.type = 'button'; toggle.hidden = true;
+    const retry = element('button', 'wpp-preview-retry', 'Retry preview'); retry.type = 'button'; retry.hidden = true;
     const controls = element('div', 'wpp-controls');
     const size = unowned(element('select', 'wpp-select'));
     const sizeLabel = labelFor(size, 'Plate size', 'size');
@@ -244,6 +252,7 @@
     const sizeHint = element('p', 'wpp-hint', 'Vehicle eligibility varies by design.');
     const sizeGroup = element('details', 'wpp-size-controls'); sizeGroup.append(element('summary', '', 'Plate size'), sizeLabel, size, sizeHint);
     const input = unowned(element('input', 'wpp-input')); input.type = 'text'; input.autocomplete = 'off'; input.spellcheck = false;
+    input.maxLength = Number(size.value);
     input.placeholder = 'e.g. PNW VIB'; input.setAttribute('autocapitalize', 'characters');
     const inputLabel = labelFor(input, 'Preferred characters', 'characters');
     const counter = element('span', 'wpp-counter'); counter.id = prefix + 'counter';
@@ -263,7 +272,7 @@
     previewDetails.append(element('summary', '', 'Preview details'), registrationNote, variantNote, caveat, privacy, details);
     const tabNote = element('p', 'wpp-tab-note', 'Tabs use the current month and year on your device for illustration, not a vehicle’s actual expiration. Colors and placement are approximate. Click the tab area to hide or restore them.');
     previewDetails.append(tabNote);
-    const previewActions = element('div', 'wpp-preview-actions'); previewActions.append(toggle, tabToggle);
+    const previewActions = element('div', 'wpp-preview-actions'); previewActions.append(toggle, retry, tabToggle);
     const approvalNote = element('p', 'wpp-approval-note', 'Preview only. DOL confirms availability, eligibility, and final appearance.');
     const previewVisual = element('div', 'wpp-preview-visual');
     previewVisual.append(panelHeading, previewName, badge, stage, caption, previewActions);
@@ -285,7 +294,7 @@
         images.set(file, new Promise(function (resolve, reject) {
           const image = new global.Image();
           image.onload = function () { resolve(image); };
-          image.onerror = function () { reject(new Error('Unable to load the local plate artwork.')); };
+          image.onerror = function () { images.delete(file); reject(new Error('Unable to load the local plate artwork.')); };
           image.src = assetBase + file;
         }));
       }
@@ -358,7 +367,7 @@
       const version = ++renderVersion;
       const profile = artwork.profile;
       const customFont = global.getComputedStyle(root).getPropertyValue('--wpp-registration-font').trim();
-        const lettering = profile.lettering;
+      const lettering = profile.lettering;
       const face = lettering && REGISTRATION_FONTS[lettering.font];
       const family = customFont || (face ? face.family : (profile.font === 'angular' ? '"WPP Plate"' : '"WPP Plate Rounded"'));
       const weight = customFont ? 400 : (face ? face.weight : 400);
@@ -369,7 +378,7 @@
         const scale = Math.min(1, 1000 / image.naturalWidth);
         canvas.width = Math.round(image.naturalWidth * scale);
         canvas.height = Math.round(image.naturalHeight * scale);
-        const context = canvas.getContext('2d');
+        const context = canvas.getContext('2d', { willReadFrequently: true });
         if (!context) throw new Error('Canvas is unavailable in this browser.');
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
         if (!artwork.blank) removeSampleInk(context, profile, canvas.width, canvas.height);
@@ -435,12 +444,15 @@
         canvas.setAttribute('aria-label', selected.name + (text ? ' approximate personalized preview showing ' + text + '.' : ' approximate personalized layout with no characters selected.'));
       } catch (error) {
         if (disposed || version !== renderVersion) return;
+        global.console.warn('Plate preview rendering failed:', error.name, error.message);
         canvas.hidden = true; sourceImage.hidden = false;
-        caption.textContent = 'Official DOL sample. The custom preview could not render; check the local artwork and font files.';
+        retry.hidden = false;
+        caption.textContent = 'Custom preview unavailable. Showing the official sample.';
       }
     }
 
     function update(shouldAnnounce) {
+      retry.hidden = true;
       const standard = designType() === 'standard';
       root.classList.toggle('wpp-standard-view', standard);
       root.classList.toggle('wpp-awaiting-design', !selected);
@@ -460,6 +472,7 @@
       const active = allowed && custom;
       const result = validate(input.value, Number(size.value));
       const hasInput = input.value.length > 0;
+      const inputError = active && (limitAttempted || (hasInput && !result.valid));
       const artwork = currentArtwork();
       previewName.textContent = selected.name;
       mobileName.textContent = selected.name;
@@ -470,10 +483,10 @@
       controls.hidden = !custom;
       input.disabled = !active; size.disabled = !active;
       input.hidden = !allowed; hint.hidden = !allowed; labelRow.hidden = !allowed;
-      input.setAttribute('aria-invalid', String(active && hasInput && !result.valid));
+      input.setAttribute('aria-invalid', String(inputError));
       counter.textContent = result.count + ' / ' + size.value;
-      feedback.classList.toggle('wpp-feedback--error', active && hasInput && !result.valid);
-      feedback.textContent = allowed ? (hasInput ? (result.valid ? 'Fits the character limit.' : result.message) : '') : selected.eligibilityNote;
+      feedback.classList.toggle('wpp-feedback--error', inputError);
+      feedback.textContent = allowed ? (limitAttempted ? 'Maximum ' + size.value + ' characters. Extra characters were not added.' : (hasInput ? (result.valid ? 'Fits the character limit.' : result.message) : '')) : selected.eligibilityNote;
       details.href = !custom && designType() === 'standard' ? 'https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates' : selected.pageUrl;
       official.href = active ? 'https://fortress.wa.gov/dol/extdriveses/ESP/NoLogon/?Link=PersonalizedPlate' : details.href;
       official.textContent = active ? 'Check availability with DOL' : (custom || !allowed ? 'View DOL requirements' : 'Get ' + (designType() === 'standard' ? 'standard plates' : 'this design') + ' at DOL');
@@ -490,7 +503,7 @@
       renderVersion++;
       if (active && !showSample) {
         caption.textContent = hasInput ? 'Approximate lettering on the official design.' : 'Your characters will appear here.';
-        drawCandidate(result.count > Number(size.value) ? 'TOO LONG' : result.text, artwork);
+        drawCandidate(result.text, artwork);
       } else {
         caption.textContent = showSample ? 'Original DOL sample, without preview tabs.' : (allowed ? 'Example number shown. DOL assigns your number.' : 'Official sample. Special requirements apply.');
       }
@@ -504,13 +517,12 @@
         return (category.value === 'All categories' || plate.category === category.value) &&
           (plate.name + ' ' + plate.category).toLocaleLowerCase().includes(query);
       });
-      const shown = matching.slice(0, visibleLimit);
-      const ids = new Set(shown.map(function (plate) { return plate.id; }));
+      const ids = new Set(matching.map(function (plate) { return plate.id; }));
       records.forEach(function (record) { record.label.hidden = !ids.has(record.data.id); });
+      const visibleCategories = new Set(matching.map(function (plate) { return plate.category; }));
+      categoryGroups.forEach(function (group, name) { group.section.hidden = !visibleCategories.has(name); });
       // Filtering never changes the selected plate or silently selects a different one.
-      count.textContent = shown.length + ' of ' + matching.length + ' designs';
-      more.hidden = shown.length === matching.length;
-      more.textContent = 'Show ' + Math.min(pageSize, matching.length - shown.length) + ' more designs';
+      count.textContent = matching.length + (matching.length === 1 ? ' design' : ' designs');
       empty.hidden = matching.length !== 0;
       clearFilters.hidden = !query && category.value === 'All categories';
       if (shouldAnnounce) announce(count.textContent + (selected ? '. Selected: ' + selected.name + '.' : '. Choose a design to preview.'));
@@ -543,32 +555,53 @@
           global.scrollBy({ top: label.getBoundingClientRect().top - toolbar.getBoundingClientRect().bottom - 12, behavior: 'instant' });
         }
       });
-      cards.append(label); records.push({ data: data, label: label, radio: radio });
+      categoryGroups.get(data.category).grid.append(label); records.push({ data: data, label: label, radio: radio });
     });
-    search.addEventListener('input', function () { visibleLimit = pageSize; filterDesigns(true); });
-    category.addEventListener('change', function () { visibleLimit = pageSize; filterDesigns(true); });
-    clearFilters.addEventListener('click', function () { search.value = ''; category.value = 'All categories'; visibleLimit = pageSize; filterDesigns(true); search.focus(); });
-    more.addEventListener('click', function () {
-      const previous = new Set(records.filter(function (record) { return !record.label.hidden; }));
-      visibleLimit += pageSize; filterDesigns(true);
-      const firstNew = records.find(function (record) { return !record.label.hidden && !previous.has(record); });
-      if (firstNew) reveal(firstNew.label, firstNew.radio);
+    search.addEventListener('input', function () { filterDesigns(true); });
+    category.addEventListener('change', function () { filterDesigns(true); });
+    clearFilters.addEventListener('click', function () { search.value = ''; category.value = 'All categories'; filterDesigns(true); search.focus(); });
+    function insertCharacters(text) {
+      const start = input.selectionStart, end = input.selectionEnd;
+      const available = Math.max(0, Number(size.value) - input.value.length + end - start);
+      const inserted = uppercase(text).slice(0, available);
+      input.setRangeText(inserted, start, end, 'end');
+      limitAttempted = text.length > available;
+      showSample = false; update(true);
+    }
+    input.addEventListener('beforeinput', function (event) {
+      if (composing || event.isComposing || !event.cancelable || !event.inputType.startsWith('insert')) return;
+      const text = event.data !== null ? event.data : (event.dataTransfer ? event.dataTransfer.getData('text/plain') : null);
+      if (text !== null && input.value.length - (input.selectionEnd - input.selectionStart) + text.length > Number(size.value)) {
+        event.preventDefault(); insertCharacters(text);
+      }
+    });
+    input.addEventListener('paste', function (event) {
+      if (!event.clipboardData) return;
+      event.preventDefault(); insertCharacters(event.clipboardData.getData('text/plain'));
+    });
+    // Native maxlength may suppress beforeinput on some keyboards. Detect a blocked key too.
+    input.addEventListener('keydown', function (event) {
+      if (!composing && !event.isComposing && !event.ctrlKey && !event.metaKey && !event.altKey && event.key.length === 1 && input.selectionStart === input.selectionEnd && input.value.length >= Number(size.value)) {
+        event.preventDefault(); limitAttempted = true; showSample = false; update(true);
+      }
     });
     input.addEventListener('compositionstart', function () { composing = true; });
     input.addEventListener('compositionend', function () { composing = false; handleInput(); });
     function handleInput() {
       if (composing) return;
       const start = input.selectionStart, end = input.selectionEnd;
-      const normalized = uppercase(input.value);
+      limitAttempted = input.value.length > Number(size.value);
+      const normalized = uppercase(input.value).slice(0, Number(size.value));
       if (normalized !== input.value) { input.value = normalized; input.setSelectionRange(start, end); }
       showSample = false; update(true);
     }
     input.addEventListener('input', handleInput);
-    size.addEventListener('change', function () { showSample = false; update(true); });
-    reset.addEventListener('click', function () { input.value = ''; showSample = false; update(true); input.focus(); });
+    size.addEventListener('change', function () { input.maxLength = Number(size.value); handleInput(); });
+    reset.addEventListener('click', function () { input.value = ''; limitAttempted = false; showSample = false; update(true); input.focus(); });
     toggle.addEventListener('click', function () { showSample = !showSample; update(true); });
+    retry.addEventListener('click', function () { showSample = false; update(true); });
     toolbar.append(heading, filters, resultsBar);
-    designs.append(toolbar, cards, empty, more);
+    designs.append(toolbar, cards, empty);
     layout.append(designs, panel); root.classList.add('wa-plate-preview'); root.replaceChildren(backgroundChoices, layout, mobileBar);
     if (previewObserver) previewObserver.observe(panel);
     filterDesigns(false); update(false);

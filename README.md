@@ -8,7 +8,7 @@ Explore Washington license plate designs and try your own characters in a live p
 
 [Watch the full-quality video](docs/media/demo.mp4) · [Desktop](docs/media/desktop.png) · [Mobile](docs/media/mobile.png)
 
-- **Choose your plate:** standard or special, with assigned or custom characters and a compact searchable gallery of all 75 entries.
+- **Choose your plate:** standard or special, with assigned or custom characters. Browse all special designs by category or search.
 - **Try your characters:** live format feedback, original-sample comparison, and optional month/year tabs.
 - **Easy to embed:** responsive HTML, CSS, and JavaScript. No dependencies, build step, accounts, or tracking.
 

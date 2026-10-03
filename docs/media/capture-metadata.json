@@ -12,55 +12,63 @@
       "action": "Start with Standard plate and DOL-assigned characters"
     },
     {
-      "seconds": 1.56,
-      "action": "Choose Special plate and browse six compact thumbnails"
+      "seconds": 1.55,
+      "action": "Show all special designs under category headings, with no plate preselected"
     },
     {
-      "seconds": 3.08,
-      "action": "Select Throwback while keeping the gallery open"
+      "seconds": 3.18,
+      "action": "Select 4-H while keeping the complete gallery open"
     },
     {
-      "seconds": 5.28,
-      "action": "Type characters in the compact preview panel"
+      "seconds": 5.18,
+      "action": "See typed characters on the live 4-H preview"
     },
     {
-      "seconds": 5.89,
+      "seconds": 5.79,
       "action": "Hide the current-date tabs"
     },
     {
-      "seconds": 6.81,
+      "seconds": 6.76,
       "action": "Restore the tabs"
     },
     {
-      "seconds": 7.92,
+      "seconds": 8.5,
+      "action": "Block the eighth character and show red limit feedback"
+    },
+    {
+      "seconds": 10.96,
+      "action": "Search f and show every match, including Fred Hutch"
+    },
+    {
+      "seconds": 13.86,
       "action": "Filter the gallery to Sports"
     },
     {
-      "seconds": 9.6,
+      "seconds": 15.56,
       "action": "Compare sports designs without closing the gallery"
     },
     {
-      "seconds": 13.03,
+      "seconds": 19.07,
       "action": "Compare the original DOL sample"
     },
     {
-      "seconds": 15.78,
+      "seconds": 21.97,
       "action": "Return to Standard plate with Custom characters preserved"
     }
   ],
   "capture_method": "Actual Chromium DevTools screencast frames with original frame timing. A recorder-only cursor and click indicator follow the real pointer; neither is included in the website.",
   "reduced_motion": false,
-  "capture_duration_seconds": 17,
-  "source_frame_count": 791,
+  "capture_duration_seconds": 23.18,
+  "source_frame_count": 1037,
   "encoding": {
     "video": {
       "file": "demo.mp4",
       "width": 1440,
       "height": 1000,
       "fps": 60,
-      "frames": 1020,
-      "duration_seconds": 17,
-      "bytes": 1171503,
+      "frames": 1391,
+      "duration_seconds": 23.183,
+      "bytes": 1791032,
       "codec": "H.264",
       "audio": false,
       "frame_timing": "Original capture timing resampled to 60 fps; no optical-flow interpolation."
@@ -70,25 +78,25 @@
       "fps": 15,
       "width": 800,
       "height": 556,
-      "frames": 255,
-      "duration_seconds": 17,
-      "bytes": 1890424
+      "frames": 348,
+      "duration_seconds": 23.2,
+      "bytes": 2808542
     }
   },
   "screenshots": {
     "desktop": {
       "width": 1440,
-      "height": 1441,
+      "height": 1000,
       "frames": 1,
       "duration_seconds": 0,
-      "bytes": 228669
+      "bytes": 287811
     },
     "mobile": {
       "width": 390,
-      "height": 2431,
+      "height": 844,
       "frames": 1,
       "duration_seconds": 0,
-      "bytes": 211039
+      "bytes": 74350
     }
   }
 }

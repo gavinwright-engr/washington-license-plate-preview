@@ -1,6 +1,17 @@
 # Verification record
 
-## Standard/special and assigned/custom choices
+## Full gallery, character caps, and preview recovery
+
+Checked October 2, 2026 in Edge/Chromium **154.0.4258.48** under the normal standalone CSP.
+
+- All 74 special entries are immediately displayed under 11 labeled category sections. Search `f` shows all 24 matches, including Fred Hutchinson Cancer Center; `fred hutch` leaves one match and one section. Empty results hide empty section headings. The Sports filter shows all nine designs. Native radio navigation follows the grouped DOM order.
+- Real keyboard entry at seven characters blocks the eighth and shows red feedback with a 7/7 count. Deleting, replacing a selection, pasting into available space, replacing the whole value, spaces/hyphens, changing to six characters, invalid punctuation, and a simulated IME commit passed. The valid retained text remains rendered after a blocked attempt.
+- All 63 supported custom designs render `222` on Canvas. Assigned/custom and standard/special switching, pending special selection, original-sample comparison, and date-tab toggles passed. A deliberately failed 4-H image request recovered through Retry preview without a page reload.
+- The user's local server had stopped. It was restarted outside the short-lived restricted process environment; the 4-H `222` preview was also verified in the actual in-app browser. The earlier cached-page failure is separate from the rendering checks above.
+- Responsive checks at widths 320, 390, 760, 810, 1000, 1024, 1440, and 1920 passed without horizontal overflow. Thumbnail width stays at most 160 pixels. Mobile preview/back shortcuts passed with the full gallery.
+- All 12 Node checks pass. Browser errors/warnings: zero during normal operation; the separate recovery test intentionally interrupts an artwork request. Requests stay local and use GET. Screenshots and recording match the updated gallery.
+
+## Earlier standard/special and assigned/custom choices
 
 Checked October 2, 2026 in Edge/Chromium **154.0.4258.48**, under the standalone CSP.
 
