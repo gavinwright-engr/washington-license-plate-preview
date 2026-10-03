@@ -1,5 +1,15 @@
 # Verification record
 
+## Gallery browsing update
+
+Checked October 2, 2026 (America/Los_Angeles) in Edge/Chromium **154.0.4258.48**, under the normal standalone CSP.
+
+- At 1440 pixels, the gallery is 984 pixels wide with four thumbnail columns; the preview is 340 pixels wide. Cards use page scrolling with no nested scrolling region. Twelve appear initially, and all 75 are reachable through Show more.
+- Selection keeps the gallery open and focus on the card. Native arrow navigation, search, categories, empty results, and candidate preservation passed. All 75 assigned images load; all four design/mode combinations remain available.
+- Widths 320, 375, 390, 760, 810, 844, 1000, 1024, 1440, and 1920 have no horizontal overflow. Below 1001 pixels the gallery fills the width with two or three columns and a preview shortcut. Mobile preview/back shortcuts and shortcut visibility passed. The 844-pixel case also used a 390-pixel landscape height.
+- Date-tab click/keyboard toggles, original-sample comparison, year rollover, restricted designs, multiple instances, host-form isolation, and destruction passed. No browser errors or external requests occurred; candidate text stayed out of requests.
+- All 12 built-in Node checks pass. Screenshots and the cursor-visible recording were refreshed for the gallery layout.
+
 ## Simplified flow, current-date tabs, and recording refresh
 
 Checked October 2, 2026 in America/Los_Angeles, using Edge/Chromium **154.0.4258.48** against the locally served app under its normal restrictive CSP. The historical verification below retains the original cloud environment’s October 3 date.

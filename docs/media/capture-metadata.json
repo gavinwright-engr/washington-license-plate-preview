@@ -9,58 +9,58 @@
   "events": [
     {
       "seconds": 0,
-      "action": "Simple design and character choices; current-date tabs are shown by default"
+      "action": "Browse a wide thumbnail gallery with a compact preview"
     },
     {
-      "seconds": 2.9,
-      "action": "Personalize the standard mountain plate"
+      "seconds": 2.73,
+      "action": "Select Throwback while keeping the gallery open"
     },
     {
-      "seconds": 6.15,
-      "action": "Click the tabs to hide them"
+      "seconds": 4.93,
+      "action": "Type characters in the compact preview panel"
     },
     {
-      "seconds": 7.15,
-      "action": "Click the same area to restore tabs"
+      "seconds": 5.54,
+      "action": "Hide the current-date tabs"
     },
     {
-      "seconds": 8.28,
-      "action": "Switch to Throwback while keeping the same characters"
+      "seconds": 6.46,
+      "action": "Restore the tabs"
     },
     {
-      "seconds": 11.71,
-      "action": "Find Seattle Kraken; the design browser closes after selection"
+      "seconds": 7.57,
+      "action": "Filter the gallery to Sports"
     },
     {
-      "seconds": 15.45,
+      "seconds": 9.25,
+      "action": "Compare sports designs without closing the gallery"
+    },
+    {
+      "seconds": 12.66,
       "action": "Compare the original DOL sample"
     },
     {
-      "seconds": 17.8,
-      "action": "Use DOL-assigned characters on a special design"
+      "seconds": 15.11,
+      "action": "Reveal more designs with ordinary page scrolling"
     },
     {
-      "seconds": 22.27,
-      "action": "A restricted design shows its requirements"
-    },
-    {
-      "seconds": 28.44,
-      "action": "Return to the personalized Throwback preview"
+      "seconds": 21.34,
+      "action": "Return to the gallery with the personalized selection preserved"
     }
   ],
   "capture_method": "Actual Chromium DevTools screencast frames with original frame timing. A recorder-only cursor and click indicator follow the real pointer; neither is included in the website.",
   "reduced_motion": false,
-  "capture_duration_seconds": 29.96,
-  "source_frame_count": 1203,
+  "capture_duration_seconds": 22.56,
+  "source_frame_count": 1066,
   "encoding": {
     "video": {
       "file": "demo.mp4",
       "width": 1440,
       "height": 1000,
       "fps": 60,
-      "frames": 1798,
-      "duration_seconds": 29.967,
-      "bytes": 2031627,
+      "frames": 1353,
+      "duration_seconds": 22.55,
+      "bytes": 3137540,
       "codec": "H.264",
       "audio": false,
       "frame_timing": "Original capture timing resampled to 60 fps; no optical-flow interpolation."
@@ -70,25 +70,25 @@
       "fps": 15,
       "width": 800,
       "height": 556,
-      "frames": 450,
-      "duration_seconds": 30,
-      "bytes": 3304434
+      "frames": 338,
+      "duration_seconds": 22.54,
+      "bytes": 4430712
     }
   },
   "screenshots": {
     "desktop": {
       "width": 1440,
-      "height": 1240,
+      "height": 1261,
       "frames": 1,
       "duration_seconds": 0,
-      "bytes": 164101
+      "bytes": 442459
     },
     "mobile": {
       "width": 390,
-      "height": 1970,
+      "height": 2678,
       "frames": 1,
       "duration_seconds": 0,
-      "bytes": 136868
+      "bytes": 279812
     }
   }
 }

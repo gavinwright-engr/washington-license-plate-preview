@@ -4,11 +4,11 @@ Explore Washington license plate designs and try your own characters in a live p
 
 [![Source checks](https://github.com/gavinwright-engr/washington-license-plate-preview/actions/workflows/checks.yml/badge.svg)](https://github.com/gavinwright-engr/washington-license-plate-preview/actions/workflows/checks.yml)
 
-![30-second demo of choosing a design, entering characters, and toggling date tabs](docs/media/demo.gif)
+![Short demo of browsing designs, entering characters, and toggling date tabs](docs/media/demo.gif)
 
 [Watch the full-quality video](docs/media/demo.mp4) · [Desktop](docs/media/desktop.png) · [Mobile](docs/media/mobile.png)
 
-- **Choose a design:** standard mountain, 72 special designs, and two emblem examples.
+- **Browse designs:** thumbnail gallery, search, and categories for the standard plate, 72 special designs, and two emblem examples.
 - **Try your characters:** live format feedback, original-sample comparison, and optional month/year tabs.
 - **Easy to embed:** responsive HTML, CSS, and JavaScript. No dependencies, build step, accounts, or tracking.
 

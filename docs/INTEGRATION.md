@@ -69,7 +69,7 @@ const state = preview.getState();
 | `controller.getState()` | Returns a fresh snapshot with `design`, `designType`, `registrationMode`, `characters`, `limit` (`6` or `7`), `personalizable`, and `formatValid`. Throws after destruction. |
 | `controller.selectDesign(id)` | Selects a known catalogue ID, synchronizes the design and character radio groups, and preserves the registration mode and candidate. Unknown IDs throw `RangeError`; a destroyed controller cannot select a design. |
 | `controller.selectRegistrationMode(mode)` | Sets `assigned` or `personalized`, synchronizes the design and character radio groups, and preserves the selected design and candidate. Invalid modes throw `RangeError`; a destroyed controller is rejected. |
-| `controller.destroy()` | Clears candidate input, removes the widget, cancels its announcement/date timers and date visibility listener, clears image references, and prevents pending rendering from updating the disposed view. Repeated destruction is safe. |
+| `controller.destroy()` | Clears candidate input, removes the widget, cancels its timers, date visibility listener, and preview visibility observer, clears image references, and prevents pending rendering from updating the disposed view. Repeated destruction is safe. |
 | `WAPlatePreview.plates` | Read-only catalogue for local integration. |
 | `WAPlatePreview.validate(text, limit)` | Returns `{ text, count, valid, message }`; requires a string and a limit of `6` or `7`. Character-format feedback only. |
 
@@ -79,9 +79,9 @@ If an automatically mounted widget needs a controller, call `WAPlatePreview.moun
 
 ## Two choices and mode changes
 
-Two radio groups offer design (Standard / Special design), then characters (DOL assigned / Personalized). Together they retain all four combinations. Initial state is standard plus assigned, displaying the original generic DOL standard sample with optional current-date preview tabs. Assigned mode displays published sample characters; it does not generate a random number, retrieve the next available number, or promise which number DOL will issue.
+Choose a plate from the visual gallery, then DOL-assigned or personalized characters in the compact preview panel. Standard and special designs support both modes where documented. The initial selection is standard plus assigned, displaying the original DOL sample with optional current-date preview tabs. Assigned mode does not generate a random number or predict which number DOL will issue.
 
-Selecting a standard card selects the mountain background and hides the special-design picker. Selecting a special card restores the last special design; its initial selection is Throwback. Selecting a design through the catalogue or `selectDesign()` updates both radio groups while keeping the registration mode. Assigned mode hides and disables character and plate-size controls. Personalized mode enables them only for a supported design; unsupported entries remain original-sample views with their requirements note.
+Selecting a gallery card or calling `selectDesign()` updates the preview while retaining the registration mode and candidate. The gallery stays open and keyboard focus stays on the selected card. Assigned mode hides and disables character and size controls. Personalized mode enables them only for a supported design; unsupported entries show their requirements.
 
 An empty supported personalized option shows the approximate personalized layout with the sample text removed, ready for candidate entry. Its original-sample comparison control is available before typing as well as afterward.
 
@@ -97,7 +97,7 @@ Visibility survives design/mode changes in the current instance but is not saved
 
 The catalogue contains 75 entries: 73 actual plate designs (one standard and 72 special) and two emblem examples. Sixty-three document personalization. The other entries remain viewable with character/size entry disabled: nine excluded designs, two emblem examples, and Rideshare whose personalization option is not documented. See [SOURCES.md](SOURCES.md).
 
-The special-design picker contains 74 entries: 72 designs and two emblem examples. Search matches plate name and category; categories are derived from those special entries. The standard design is chosen through the design radio group or API. The special-design browser starts collapsed in a native details element; its summary names the current selection. Choosing a design closes it and returns focus to its summary. Filtering never silently changes the selected plate or candidate. The desktop grid scrolls; narrow screens use the synchronized grouped picker. The original DOL sample remains available for comparison on supported personalized options, including before candidate entry.
+The gallery includes all 75 entries, with Standard and Throwback first and the rest alphabetical. Search matches name and category. Twelve results appear initially; **Show more designs** reveals the next twelve and focuses the first new card. Filtering resets that visible count without changing the selected design or candidate. Desktop uses up to four columns, ordinary page scrolling, and a compact preview sidebar. Narrower windows use a full-width gallery with three columns, or two on phones, and a **Preview & personalize** shortcut; **Back to designs** returns focus to search. The shortcut hides while the preview is in view. Native radio arrows select adjacent visible designs.
 
 In personalized mode, selecting a six-character limit changes format feedback. A configured `smallArtwork` image takes precedence over `personalizedArtwork`; currently the standard mountain entry has a separate published motorcycle sample. For other sizes, `personalizedArtwork` takes precedence over the legacy `artwork`/`profile` fields. Assigned mode uses `assignedArtwork` when supplied and otherwise the original `artwork`; it never uses the personalized small-size sample. The size selector does not prove that every design is available for every vehicle type; follow each design's DOL requirements link.
 
@@ -107,7 +107,7 @@ Use unique IDs, trusted official page URLs, and local asset filenames. Update su
 
 ## Multiple instances, forms, and styling
 
-Each root has independent state. IDs and radio-group names are unique per instance. Design-type and registration-mode radios, search, category, mobile design, size, candidate, and design radios explicitly reference a nonexistent `wpp-N-no-form` ID in their `form` attribute, so they have no form owner and do not join an enclosing host form. Character and size controls have no `name` attribute; buttons use `type="button"`. Reserve the `wpp-*` ID namespace and never create a matching `no-form` element. Prefer independent placement outside forms unless intentionally integrating the choice.
+Each root has independent state. IDs and radio-group names are unique per instance. Gallery and registration-mode radios, search, category, size, and candidate controls explicitly reference a nonexistent `wpp-N-no-form` ID in their `form` attribute, so they have no form owner and do not join an enclosing host form. Character and size controls have no `name` attribute; buttons use `type="button"`. Reserve the `wpp-*` ID namespace and never create a matching `no-form` element. Prefer independent placement outside forms unless intentionally integrating the choice.
 
 If a host application intentionally submits the choice, read `getState()` at a deliberate user action, explain that transmission, and apply normal server validation. Do not silently add background lookups or saved preferences.
 

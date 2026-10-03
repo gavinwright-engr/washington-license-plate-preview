@@ -53,7 +53,8 @@
       throw new TypeError('assetBase must be a local directory ending with /, without .. or a host.');
     }
     let selected = PLATES[0];
-    let lastSpecial = PLATES.find(function (plate) { return plate.id === 'throwback-plate'; }) || PLATES[1];
+    const pageSize = 12;
+    let visibleLimit = pageSize;
     let registrationMode = 'assigned';
     let showSample = false;
     let composing = false;
@@ -61,7 +62,13 @@
     let renderVersion = 0;
     let announcementTimer;
     const images = new Map();
-    const categories = Array.from(new Set(PLATES.filter(function (plate) { return plate.id !== 'standard'; }).map(function (plate) { return plate.category; })));
+    const browsePlates = PLATES.slice().sort(function (a, b) {
+      const priority = ['standard', 'throwback-plate'];
+      const aRank = priority.indexOf(a.id), bRank = priority.indexOf(b.id);
+      if (aRank !== bRank && (aRank !== -1 || bRank !== -1)) return (aRank === -1 ? 2 : aRank) - (bRank === -1 ? 2 : bRank);
+      return a.name.localeCompare(b.name);
+    });
+    const categories = Array.from(new Set(PLATES.map(function (plate) { return plate.category; }))).sort();
 
     function element(tag, className, text) {
       const node = doc.createElement(tag);
@@ -89,32 +96,11 @@
       announcementTimer = global.setTimeout(function () { if (!disposed) status.textContent = message; }, 450);
     }
 
-    // Two independent choices expose all four combinations without repeating them.
-    const choices = element('fieldset', 'wpp-options');
-    choices.append(element('legend', 'wpp-heading', '1. Choose a design'));
-    const choiceGrid = element('div', 'wpp-option-grid');
-    const choiceRecords = [];
-    [
-      ['standard', 'Standard', 'The classic mountain plate', PLATES[0].assignedArtwork ? PLATES[0].assignedArtwork.file : PLATES[0].artwork],
-      ['special', 'Special design', 'Sports, wildlife, causes & more', lastSpecial.artwork]
-    ].forEach(function (entry) {
-      const label = element('label', 'wpp-option');
-      const radio = unowned(element('input', 'wpp-option-radio'));
-      radio.type = 'radio'; radio.name = prefix + 'design-type'; radio.value = entry[0];
-      const face = element('span', 'wpp-option-face');
-      const image = element('img', 'wpp-option-image');
-      image.src = assetBase + entry[3]; image.alt = ''; image.width = 160; image.height = 80;
-      face.append(image, element('span', 'wpp-option-title', entry[1]), element('span', 'wpp-option-description', entry[2]));
-      label.append(radio, face); choiceGrid.append(label);
-      radio.addEventListener('change', function () { if (radio.checked) choose(entry[0] === 'standard' ? 'standard' : lastSpecial.id, true); });
-      choiceRecords.push({ radio: radio, value: entry[0] });
-    });
-    choices.append(choiceGrid);
     const registrationChoices = element('fieldset', 'wpp-registration-options');
-    registrationChoices.append(element('legend', 'wpp-heading', '2. Choose your characters'));
+    registrationChoices.append(element('legend', 'wpp-heading', '2. Choose characters'));
     const registrationGrid = element('div', 'wpp-registration-grid');
     const registrationRecords = [];
-    [['assigned', 'DOL assigned', 'DOL chooses the number'], ['personalized', 'Personalized', 'Choose your own characters']].forEach(function (entry) {
+    [['assigned', 'DOL assigned', 'Sample number'], ['personalized', 'Personalized', 'Your characters']].forEach(function (entry) {
       const label = element('label', 'wpp-option');
       const radio = unowned(element('input', 'wpp-option-radio'));
       radio.type = 'radio'; radio.name = prefix + 'registration'; radio.value = entry[0];
@@ -126,14 +112,16 @@
     });
     registrationChoices.append(registrationGrid);
     const layout = element('div', 'wpp-layout');
-    const designs = element('details', 'wpp-designs');
-    const heading = element('summary', 'wpp-design-summary', 'Change design');
-    const intro = element('p', 'wpp-sr-only', (catalog.designCount - 1) + ' special plate designs and ' + catalog.emblemCount + ' emblem examples from DOL.');
+    const designs = element('section', 'wpp-designs');
+    const heading = element('h2', 'wpp-heading', '1. Choose a design');
+    heading.id = prefix + 'gallery-heading';
+    designs.setAttribute('aria-labelledby', heading.id);
+    const toolbar = element('div', 'wpp-gallery-toolbar');
     const filters = element('div', 'wpp-filters');
     const search = unowned(element('input', 'wpp-search'));
     search.type = 'search'; search.autocomplete = 'off'; search.spellcheck = false;
     search.placeholder = 'Plate name or organization';
-    const searchLabel = labelFor(search, 'Find a design', 'search');
+    const searchLabel = labelFor(search, 'Search designs', 'search');
     const category = unowned(element('select', 'wpp-select'));
     const categoryLabel = labelFor(category, 'Category', 'category');
     ['All categories'].concat(categories).forEach(function (name) {
@@ -144,20 +132,34 @@
     filters.append(searchGroup, categoryGroup);
     const count = element('p', 'wpp-result-count');
     const cards = element('fieldset', 'wpp-design-grid');
+    cards.id = prefix + 'design-grid';
     cards.append(element('legend', 'wpp-sr-only', 'Plate design'));
     const empty = element('p', 'wpp-empty', 'No designs match these filters. Try another name or category.');
     empty.hidden = true;
     const clearFilters = element('button', 'wpp-clear-filters', 'Clear filters'); clearFilters.type = 'button'; clearFilters.hidden = true;
+    const resultsBar = element('div', 'wpp-results-bar'); resultsBar.append(count, clearFilters);
+    const more = element('button', 'wpp-show-more'); more.type = 'button'; more.setAttribute('aria-controls', cards.id);
     const records = [];
-    const mobile = element('div', 'wpp-mobile-picker');
-    const mobileSelect = unowned(element('select', 'wpp-select'));
-    const mobileLabel = labelFor(mobileSelect, 'Plate design', 'mobile-design');
-    const mobileEmpty = element('p', 'wpp-muted', 'No matching designs. Clear or change the filters.'); mobileEmpty.hidden = true;
-    mobile.append(mobileLabel, mobileSelect, mobileEmpty);
 
     const panel = element('section', 'wpp-panel');
     const panelHeading = element('h2', 'wpp-heading', 'Your plate preview');
+    panel.id = prefix + 'preview'; panelHeading.tabIndex = -1;
     const previewName = element('h3', 'wpp-preview-name', selected.name);
+    const mobileBar = element('div', 'wpp-mobile-bar');
+    const mobileName = element('span', 'wpp-mobile-name');
+    const previewJump = element('button', 'wpp-preview-jump', 'Preview & personalize'); previewJump.type = 'button';
+    const backToDesigns = element('button', 'wpp-back-designs', 'Back to designs'); backToDesigns.type = 'button';
+    function reveal(target, focusTarget) {
+      const reduceMotion = global.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      focusTarget.focus({ preventScroll: true });
+      target.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'instant' : 'smooth' });
+    }
+    previewJump.addEventListener('click', function () { reveal(panel, panelHeading); });
+    backToDesigns.addEventListener('click', function () { reveal(designs, search); });
+    mobileBar.append(mobileName, previewJump);
+    const previewObserver = global.IntersectionObserver ? new global.IntersectionObserver(function (entries) {
+      mobileBar.hidden = entries[0].isIntersecting;
+    }) : null;
     const badge = element('p', 'wpp-eligibility');
     const registrationNote = element('p', 'wpp-registration-note');
     const stage = element('div', 'wpp-stage');
@@ -235,7 +237,7 @@
     previewDetails.append(tabNote);
     const previewActions = element('div', 'wpp-preview-actions'); previewActions.append(toggle, tabToggle);
     const approvalNote = element('p', 'wpp-approval-note', 'Preview only. DOL confirms availability, eligibility, and final appearance.');
-    panel.append(panelHeading, previewName, badge, stage, caption, previewActions, official, approvalNote, previewDetails, status);
+    panel.append(backToDesigns, panelHeading, previewName, badge, stage, caption, previewActions, registrationChoices, controls, official, approvalNote, previewDetails, status);
 
     function currentArtwork() {
       // Separate published/authorized artwork can capture a design change between
@@ -414,12 +416,9 @@
       const hasInput = input.value.length > 0;
       const artwork = currentArtwork();
       previewName.textContent = selected.name;
-      heading.textContent = 'Change design: ' + lastSpecial.name;
+      mobileName.textContent = selected.name;
       badge.textContent = !allowed ? eligibilityLabel(selected) : (custom ? 'Personalized characters' : 'DOL-assigned characters');
       registrationNote.textContent = custom ? 'Choose your preferred characters. Personalized lettering or layout can differ from the assigned-number sample.' : (allowed ? 'DOL assigns the next available number. This published sample illustrates the design; it is not your assigned number.' : 'View-only catalog entry. Follow its DOL requirements for characters or an existing plate. This published example does not assign a number.');
-      designs.hidden = designType() === 'standard';
-      layout.classList.toggle('wpp-layout--standard', designs.hidden);
-      choiceRecords.forEach(function (record) { record.radio.checked = record.value === designType(); });
       registrationRecords.forEach(function (record) { record.radio.checked = record.value === registrationMode; });
       sizeGroup.hidden = !custom || !allowed; characterGroup.hidden = !custom;
       controls.hidden = !custom;
@@ -455,30 +454,17 @@
 
     function filterDesigns(shouldAnnounce) {
       const query = search.value.trim().toLocaleLowerCase();
-      const matching = PLATES.filter(function (plate) {
-        return plate.id !== 'standard' && (category.value === 'All categories' || plate.category === category.value) &&
+      const matching = browsePlates.filter(function (plate) {
+        return (category.value === 'All categories' || plate.category === category.value) &&
           (plate.name + ' ' + plate.category).toLocaleLowerCase().includes(query);
       });
-      const ids = new Set(matching.map(function (plate) { return plate.id; }));
+      const shown = matching.slice(0, visibleLimit);
+      const ids = new Set(shown.map(function (plate) { return plate.id; }));
       records.forEach(function (record) { record.label.hidden = !ids.has(record.data.id); });
-      mobileSelect.replaceChildren();
-      categories.forEach(function (name) {
-        const members = matching.filter(function (plate) { return plate.category === name; });
-        if (!members.length) return;
-        const group = element('optgroup'); group.label = name;
-        members.forEach(function (plate) {
-          const option = element('option', '', plate.name + (personalizable(plate) ? '' : ' · view only'));
-          option.value = plate.id; group.append(option);
-        });
-        mobileSelect.append(group);
-      });
       // Filtering never changes the selected plate or silently selects a different one.
-      if (selected.id !== 'standard' && !ids.has(selected.id) && matching.length) {
-        const current = element('option', '', 'Selected: ' + selected.name); current.value = selected.id; mobileSelect.prepend(current);
-      }
-      mobileSelect.value = selected.id === 'standard' ? lastSpecial.id : selected.id; mobileSelect.disabled = matching.length === 0;
-      mobileEmpty.hidden = matching.length !== 0;
-      count.textContent = matching.length + ' of ' + (PLATES.length - 1) + ' entries shown';
+      count.textContent = shown.length + ' of ' + matching.length + ' designs';
+      more.hidden = shown.length === matching.length;
+      more.textContent = 'Show ' + Math.min(pageSize, matching.length - shown.length) + ' more designs';
       empty.hidden = matching.length !== 0;
       clearFilters.hidden = !query && category.value === 'All categories';
       if (shouldAnnounce) announce(count.textContent + '. Selected: ' + selected.name + '.');
@@ -487,36 +473,38 @@
       const found = PLATES.find(function (plate) { return plate.id === id; });
       if (!found) throw new RangeError('Unknown plate design.');
       selected = found; showSample = false;
-      if (found.id !== 'standard') lastSpecial = found;
       records.forEach(function (record) { record.radio.checked = record.data.id === id; });
       filterDesigns(false); update(shouldAnnounce);
     }
-    PLATES.forEach(function (data) {
-      if (data.id === 'standard') return;
+    browsePlates.forEach(function (data) {
       const label = element('label', 'wpp-design-card');
       const radio = unowned(element('input', 'wpp-design-radio'));
       radio.type = 'radio'; radio.name = prefix + 'design'; radio.value = data.id; radio.checked = data.id === selected.id;
       const face = element('span', 'wpp-card-face');
-      const image = element('img', 'wpp-card-image'); image.src = assetBase + data.artwork; image.alt = ''; image.loading = 'lazy'; image.draggable = false;
+      const image = element('img', 'wpp-card-image'); image.src = assetBase + (data.assignedArtwork ? data.assignedArtwork.file : data.artwork); image.alt = ''; image.loading = 'lazy'; image.draggable = false;
       image.width = data.width; image.height = data.height;
       const title = element('span', 'wpp-card-title', data.name);
-      const kind = element('span', 'wpp-card-category', personalizable(data) ? '' : eligibilityLabel(data));
+      const kind = element('span', 'wpp-sr-only', personalizable(data) ? '' : eligibilityLabel(data));
       face.append(image, title, kind); label.append(radio, face);
       radio.addEventListener('change', function () {
         if (!radio.checked) return;
         choose(data.id, true);
-        designs.open = false;
-        heading.focus({ preventScroll: true });
+      });
+      radio.addEventListener('focus', function () {
+        if (global.getComputedStyle(toolbar).position === 'sticky' && label.getBoundingClientRect().top < toolbar.getBoundingClientRect().bottom) {
+          label.scrollIntoView({ block: 'start', behavior: 'instant' });
+        }
       });
       cards.append(label); records.push({ data: data, label: label, radio: radio });
     });
-    search.addEventListener('input', function () { filterDesigns(true); });
-    category.addEventListener('change', function () { filterDesigns(true); });
-    clearFilters.addEventListener('click', function () { search.value = ''; category.value = 'All categories'; filterDesigns(true); search.focus(); });
-    mobileSelect.addEventListener('change', function () {
-      choose(mobileSelect.value, true);
-      designs.open = false;
-      heading.focus({ preventScroll: true });
+    search.addEventListener('input', function () { visibleLimit = pageSize; filterDesigns(true); });
+    category.addEventListener('change', function () { visibleLimit = pageSize; filterDesigns(true); });
+    clearFilters.addEventListener('click', function () { search.value = ''; category.value = 'All categories'; visibleLimit = pageSize; filterDesigns(true); search.focus(); });
+    more.addEventListener('click', function () {
+      const previous = new Set(records.filter(function (record) { return !record.label.hidden; }));
+      visibleLimit += pageSize; filterDesigns(true);
+      const firstNew = records.find(function (record) { return !record.label.hidden && !previous.has(record); });
+      if (firstNew) reveal(firstNew.label, firstNew.radio);
     });
     input.addEventListener('compositionstart', function () { composing = true; });
     input.addEventListener('compositionend', function () { composing = false; handleInput(); });
@@ -531,10 +519,10 @@
     size.addEventListener('change', function () { showSample = false; update(true); });
     reset.addEventListener('click', function () { input.value = ''; showSample = false; update(true); input.focus(); });
     toggle.addEventListener('click', function () { showSample = !showSample; update(true); });
-    designs.append(heading, intro, filters, count, cards, mobile, empty, clearFilters);
-    const configuration = element('div', 'wpp-configuration');
-    configuration.append(choices, designs, registrationChoices, controls);
-    layout.append(configuration, panel); root.classList.add('wa-plate-preview'); root.replaceChildren(layout);
+    toolbar.append(heading, filters, resultsBar);
+    designs.append(toolbar, cards, empty, more);
+    layout.append(designs, panel); root.classList.add('wa-plate-preview'); root.replaceChildren(layout, mobileBar);
+    if (previewObserver) previewObserver.observe(panel);
     filterDesigns(false); update(false);
     const controller = Object.freeze({
       getState: function () {
@@ -552,6 +540,7 @@
       destroy: function () {
         if (mounted.get(root) !== controller) return;
         disposed = true; renderVersion++; global.clearTimeout(announcementTimer); global.clearInterval(tabTimer); doc.removeEventListener('visibilitychange', updateTabs); images.clear(); input.value = '';
+        if (previewObserver) previewObserver.disconnect();
         root.replaceChildren(); root.classList.remove('wa-plate-preview'); mounted.delete(root);
       }
     });
