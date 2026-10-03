@@ -67,9 +67,9 @@ const state = preview.getState();
 | --- | --- |
 | `WAPlatePreview.mount(root, { assetBase })` | Mounts a dedicated DOM element and returns its controller. Repeated mounting returns the existing controller without applying new options. |
 | `controller.getState()` | Returns a fresh snapshot with `design`, `designType`, `registrationMode`, `characters`, `limit` (`6` or `7`), `personalizable`, and `formatValid`. Throws after destruction. |
-| `controller.selectDesign(id)` | Selects a known catalogue ID, synchronizes the four option cards, and preserves the registration mode and candidate. Unknown IDs throw `RangeError`; a destroyed controller cannot select a design. |
-| `controller.selectRegistrationMode(mode)` | Sets `assigned` or `personalized`, synchronizes the option cards, and preserves the selected design and candidate. Invalid modes throw `RangeError`; a destroyed controller is rejected. |
-| `controller.destroy()` | Clears candidate input, removes the widget, cancels its announcement timer, clears image references, and prevents pending rendering from updating the disposed view. Repeated destruction is safe. |
+| `controller.selectDesign(id)` | Selects a known catalogue ID, synchronizes the design and character radio groups, and preserves the registration mode and candidate. Unknown IDs throw `RangeError`; a destroyed controller cannot select a design. |
+| `controller.selectRegistrationMode(mode)` | Sets `assigned` or `personalized`, synchronizes the design and character radio groups, and preserves the selected design and candidate. Invalid modes throw `RangeError`; a destroyed controller is rejected. |
+| `controller.destroy()` | Clears candidate input, removes the widget, cancels its announcement/date timers and date visibility listener, clears image references, and prevents pending rendering from updating the disposed view. Repeated destruction is safe. |
 | `WAPlatePreview.plates` | Read-only catalogue for local integration. |
 | `WAPlatePreview.validate(text, limit)` | Returns `{ text, count, valid, message }`; requires a string and a limit of `6` or `7`. Character-format feedback only. |
 
@@ -77,21 +77,27 @@ const state = preview.getState();
 
 If an automatically mounted widget needs a controller, call `WAPlatePreview.mount(root)` to retrieve it. To apply new options, destroy and mount again. Destroy does not restore fallback content; the host supplies any replacement.
 
-## Four options and mode changes
+## Two choices and mode changes
 
-Four visible radio cards represent standard design with assigned characters, standard with personalized characters, special design with assigned characters, and special with personalized characters. Initial state is standard plus assigned, displaying the unchanged generic DOL standard sample. Assigned mode displays published sample characters; it does not generate a random number, retrieve the next available number, or promise which number DOL will issue.
+Two radio groups offer design (Standard / Special design), then characters (DOL assigned / Personalized). Together they retain all four combinations. Initial state is standard plus assigned, displaying the original generic DOL standard sample with optional current-date preview tabs. Assigned mode displays published sample characters; it does not generate a random number, retrieve the next available number, or promise which number DOL will issue.
 
-Selecting a standard card selects the mountain background and hides the special-design picker. Selecting a special card restores the last special design; its initial selection is Throwback. Selecting a design through the catalogue or `selectDesign()` updates the option cards while keeping the registration mode. Assigned mode hides and disables character and plate-size controls. Personalized mode enables them only for a supported design; unsupported entries remain original-sample views with their requirements note.
+Selecting a standard card selects the mountain background and hides the special-design picker. Selecting a special card restores the last special design; its initial selection is Throwback. Selecting a design through the catalogue or `selectDesign()` updates both radio groups while keeping the registration mode. Assigned mode hides and disables character and plate-size controls. Personalized mode enables them only for a supported design; unsupported entries remain original-sample views with their requirements note.
 
 An empty supported personalized option shows the approximate personalized layout with the sample text removed, ready for candidate entry. Its original-sample comparison control is available before typing as well as afterward.
 
 Switching options or selecting an unsupported design keeps the candidate in the current page so it returns when a supported personalized option is selected. This retained value is excluded from `getState()` while inactive. It is not saved to storage or sent elsewhere; existing host-page scripts can still read DOM input. Clearing or destroying the widget removes the candidate.
 
+## Preview tabs
+
+Current local month/year tabs appear by default in the plate’s upper-right corner. The tab area is a native button: click it or use Enter/Space to hide or restore the overlay. A separate Hide tabs / Show tabs button provides the same action. Both expose their state with aria-pressed, and the tab button’s accessible name includes the displayed month and year. The hidden area stays clickable with a faint outline.
+
+Visibility survives design/mode changes in the current instance but is not saved. The date is refreshed every minute and when page visibility changes. Original-sample comparison hides the overlay; Collector Vehicle, Horseless Carriage, Restored, and emblem examples omit it. Tabs illustrate the current device date, not actual vehicle expiration; placement and colors are approximate. See [ARTWORK.md](ARTWORK.md). Tab visibility is presentation state and is not part of getState().
+
 ## Catalogue, filtering, and size
 
 The catalogue contains 75 entries: 73 actual plate designs (one standard and 72 special) and two emblem examples. Sixty-three document personalization. The other entries remain viewable with character/size entry disabled: nine excluded designs, two emblem examples, and Rideshare whose personalization option is not documented. See [SOURCES.md](SOURCES.md).
 
-The special-design picker contains 74 entries: 72 designs and two emblem examples. Search matches plate name and category; categories are derived from those special entries. The standard design is chosen through the option cards or API. Filtering never silently changes the selected plate or candidate. The desktop grid scrolls; narrow screens use the synchronized grouped picker. The original DOL sample remains available for comparison on supported personalized options, including before candidate entry.
+The special-design picker contains 74 entries: 72 designs and two emblem examples. Search matches plate name and category; categories are derived from those special entries. The standard design is chosen through the design radio group or API. The special-design browser starts collapsed in a native details element; its summary names the current selection. Choosing a design closes it and returns focus to its summary. Filtering never silently changes the selected plate or candidate. The desktop grid scrolls; narrow screens use the synchronized grouped picker. The original DOL sample remains available for comparison on supported personalized options, including before candidate entry.
 
 In personalized mode, selecting a six-character limit changes format feedback. A configured `smallArtwork` image takes precedence over `personalizedArtwork`; currently the standard mountain entry has a separate published motorcycle sample. For other sizes, `personalizedArtwork` takes precedence over the legacy `artwork`/`profile` fields. Assigned mode uses `assignedArtwork` when supplied and otherwise the original `artwork`; it never uses the personalized small-size sample. The size selector does not prove that every design is available for every vehicle type; follow each design's DOL requirements link.
 
@@ -101,7 +107,7 @@ Use unique IDs, trusted official page URLs, and local asset filenames. Update su
 
 ## Multiple instances, forms, and styling
 
-Each root has independent state. IDs and radio-group names are unique per instance. Option-card radios, search, category, mobile design, size, candidate, and design radios explicitly reference a nonexistent `wpp-N-no-form` ID in their `form` attribute, so they have no form owner and do not join an enclosing host form. Character and size controls have no `name` attribute; buttons use `type="button"`. Reserve the `wpp-*` ID namespace and never create a matching `no-form` element. Prefer independent placement outside forms unless intentionally integrating the choice.
+Each root has independent state. IDs and radio-group names are unique per instance. Design-type and registration-mode radios, search, category, mobile design, size, candidate, and design radios explicitly reference a nonexistent `wpp-N-no-form` ID in their `form` attribute, so they have no form owner and do not join an enclosing host form. Character and size controls have no `name` attribute; buttons use `type="button"`. Reserve the `wpp-*` ID namespace and never create a matching `no-form` element. Prefer independent placement outside forms unless intentionally integrating the choice.
 
 If a host application intentionally submits the choice, read `getState()` at a deliberate user action, explain that transmission, and apply normal server validation. Do not silently add background lookups or saved preferences.
 
@@ -124,6 +130,6 @@ Adjust the height and test narrow screens; the iframe does not resize its parent
 
 ## Adoption checks
 
-Run `node --test` from the project root and inspect [VERIFICATION.md](VERIFICATION.md) for the version checked. Test within the actual application: all four option cards, assigned samples, candidate preservation and inactive state, keyboard/radio navigation, assistive technology, zoom, narrow layouts, filtering preservation, view-only entries, original-sample comparison, six-character feedback, multiple instances, JavaScript-disabled fallback, missing asset handling, and host forms. Review existing analytics or session replay because other scripts may read DOM input.
+Run `node --test` from the project root and inspect [VERIFICATION.md](VERIFICATION.md) for the version checked. Test within the actual application: all four combinations, assigned samples, candidate preservation and inactive state, keyboard/radio navigation, assistive technology, zoom, narrow layouts, filtering preservation, view-only entries, original-sample comparison, six-character feedback, current-date rollover, tab click/keyboard toggles, multiple instances, JavaScript-disabled fallback, missing asset handling, and host forms. Review existing analytics or session replay because other scripts may read DOM input.
 
 Use the host application's established CSP. Local font loading needs `font-src 'self'`. [SECURITY.md](SECURITY.md) provides a restrictive standalone-route example; do not copy its `form-action 'none'` rule into an application that needs legitimate forms.

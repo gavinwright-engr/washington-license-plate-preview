@@ -1,8 +1,23 @@
-# Verification record — four options and calibrated lettering
+# Verification record
 
-Checked October 3, 2026. These results cover the supplied contribution, not an official issuance system or a certification of an integrating website.
+## Simplified flow, current-date tabs, and recording refresh
 
-## Automated tests
+Checked October 2, 2026 in America/Los_Angeles, using Edge/Chromium **154.0.4258.48** against the locally served app under its normal restrictive CSP. The historical verification below retains the original cloud environment’s October 3 date.
+
+- The 12 built-in Node tests pass, including all 79 original image hashes and six derivative-font hashes.
+- Both independent radio groups preserve all four combinations and retain the candidate across design/mode changes. The collapsible design browser closes after selection and restores focus to its summary. Unsupported designs keep character editing disabled.
+- All 75 assigned catalog images load. Original-sample comparison hides the date overlay and restores it on return.
+- The mobile picker selects and closes correctly. Multiple instances retain separate candidates/tab visibility, and controls remain excluded from host FormData; Enter and tab-toggle clicks do not submit an enclosing form.
+- Tab clicks, Enter, and Space toggle visibility. Visibility survives mode changes. A simulated local December 31 → January 1 rollover updates both month and year; the unknown future year uses a neutral color. Destroy removes the widget, its date timer, and listener.
+- Layouts at 320, 375, 390, 760, 844, 1024, and 1440 CSS pixels have no horizontal overflow; the 844-pixel case also uses a 390-pixel landscape height. The tab button is at least 24 pixels tall. Reduced-motion styling was enabled for screenshot verification.
+- Browser console/page errors: zero. Observed requests stayed on the local origin, used GET without bodies, and contained no candidate text.
+- Desktop/mobile screenshots and the recording were replaced. The MP4 is about 30 seconds at 60 fps, with smooth browser scrolling and a visible recorder-only cursor/click indicator. The GIF is 15 fps. The recording uses normal motion; neither cursor nor recorder tooling ships in the widget. See [media/README.md](media/README.md).
+
+## Earlier rendering and integration verification
+
+Checked October 3, 2026 in the original cloud environment. These results cover the supplied contribution, not an official issuance system or a certification of an integrating website.
+
+### Automated tests
 
 Run from the project directory with Node's built-in runner:
 
@@ -12,11 +27,11 @@ node --test
 
 The format and catalogue/asset test files completed successfully. Their **12 checks** verify size limits, preservation of spaces and hyphens, unsupported characters, format-only wording, complete audited catalogue coverage, restricted personalization types, bounded rendering geometry, safe local paths, SHA-256 integrity of all **79 unchanged DOL image files**, and the six new font derivatives with their complete license notices. Every personalized profile is cross-checked against its documented lettering calibration. Individual test counts are also visible with `node tests/catalog.test.cjs` and `node tests/format.test.cjs`.
 
-## Browser verification
+### Browser verification
 
 The standalone demonstration was served over local HTTP and tested in Chromium **151.0.7922.173** under its restrictive CSP. Browser automation and its result files stayed outside the distributable; the addition itself has no runtime dependencies.
 
-The four option cards were exercised: standard with DOL-assigned characters, standard with custom characters, special design with DOL-assigned characters, and special design with custom characters. The initial state used the exact published `official/standard-3.png` sample in assigned mode, with character controls hidden and disabled and no custom Canvas visible.
+The original four-card interface was exercised before the two-group simplification: standard with DOL-assigned characters, standard with custom characters, special design with DOL-assigned characters, and special design with custom characters. The initial state used the exact published `official/standard-3.png` sample in assigned mode, with character controls hidden and disabled and no custom Canvas visible.
 
 All **75 catalogue entries** were selected through the public API in assigned mode. Each displayed its configured original sample, kept custom Canvas inactive, and returned empty active characters with `formatValid: false`. In personalized mode, all **63 supported entries** rendered a candidate on Canvas; all **12 unsupported entries** retained original samples, disabled editing, and returned no active candidate. Browser page errors, request failures, and HTTP error responses: **zero**.
 
@@ -42,7 +57,7 @@ The following checks passed:
 
 Earlier catalogue work included inspection of original image dimensions, masks, ink colors, unusual text placements, and a gallery of personalized renders. The interface font and theme values were checked against DOL's actual website. The October 3 browser checks above verify mode behavior and rendering execution; they do not certify pixel accuracy or manufacturing geometry. Source review found no tracking, storage, executable input, dynamic HTML insertion, or network data API.
 
-## Font comparison and glyph bounds
+### Font comparison and glyph bounds
 
 The lettering study compared **84 static font variants** against **64 source samples**: all 63 personalizable designs and the standard motorcycle variant. The actual sample characters were inspected individually, with organization prefixes excluded from font scoring. Normalized glyph silhouettes, measured cap heights, visible widths, and spacing informed the selections; independent visual review checked structural details. The standard selection preserves its barred I and unbarred J. [FONTS.md](FONTS.md) and [font-matches.json](font-matches.json) record choices and limits for every source.
 

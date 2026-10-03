@@ -89,35 +89,46 @@
       announcementTimer = global.setTimeout(function () { if (!disposed) status.textContent = message; }, 450);
     }
 
+    // Two independent choices expose all four combinations without repeating them.
     const choices = element('fieldset', 'wpp-options');
-    choices.append(element('legend', 'wpp-heading', 'Choose your plate option'));
-    choices.append(element('p', 'wpp-muted', 'Choose a standard or custom design, then DOL-assigned (“random”) or personalized (custom) characters. For eligible plates, DOL assigns the next available number.'));
+    choices.append(element('legend', 'wpp-heading', '1. Choose a design'));
     const choiceGrid = element('div', 'wpp-option-grid');
     const choiceRecords = [];
     [
-      ['standard-assigned', 'Standard plate + DOL-assigned characters', 'Mountain background. You do not choose the characters.'],
-      ['standard-personalized', 'Standard plate + custom characters', 'Mountain background with your personalized characters.'],
-      ['special-assigned', 'Custom plate + DOL-assigned characters', 'Choose a special design. You do not choose the characters.'],
-      ['special-personalized', 'Custom plate + custom characters', 'Choose a special design and personalize it where permitted.']
+      ['standard', 'Standard', 'The classic mountain plate', PLATES[0].assignedArtwork ? PLATES[0].assignedArtwork.file : PLATES[0].artwork],
+      ['special', 'Special design', 'Sports, wildlife, causes & more', lastSpecial.artwork]
     ].forEach(function (entry) {
       const label = element('label', 'wpp-option');
       const radio = unowned(element('input', 'wpp-option-radio'));
-      radio.type = 'radio'; radio.name = prefix + 'option'; radio.value = entry[0];
+      radio.type = 'radio'; radio.name = prefix + 'design-type'; radio.value = entry[0];
       const face = element('span', 'wpp-option-face');
-      face.append(element('span', 'wpp-option-title', entry[1]), element('span', 'wpp-option-description', entry[2]));
+      const image = element('img', 'wpp-option-image');
+      image.src = assetBase + entry[3]; image.alt = ''; image.width = 160; image.height = 80;
+      face.append(image, element('span', 'wpp-option-title', entry[1]), element('span', 'wpp-option-description', entry[2]));
       label.append(radio, face); choiceGrid.append(label);
-      radio.addEventListener('change', function () {
-        if (!radio.checked) return;
-        registrationMode = entry[0].endsWith('-assigned') ? 'assigned' : 'personalized';
-        choose(entry[0].startsWith('standard-') ? 'standard' : lastSpecial.id, true);
-      });
+      radio.addEventListener('change', function () { if (radio.checked) choose(entry[0] === 'standard' ? 'standard' : lastSpecial.id, true); });
       choiceRecords.push({ radio: radio, value: entry[0] });
     });
     choices.append(choiceGrid);
+    const registrationChoices = element('fieldset', 'wpp-registration-options');
+    registrationChoices.append(element('legend', 'wpp-heading', '2. Choose your characters'));
+    const registrationGrid = element('div', 'wpp-registration-grid');
+    const registrationRecords = [];
+    [['assigned', 'DOL assigned', 'DOL chooses the number'], ['personalized', 'Personalized', 'Choose your own characters']].forEach(function (entry) {
+      const label = element('label', 'wpp-option');
+      const radio = unowned(element('input', 'wpp-option-radio'));
+      radio.type = 'radio'; radio.name = prefix + 'registration'; radio.value = entry[0];
+      const face = element('span', 'wpp-option-face');
+      face.append(element('span', 'wpp-option-title', entry[1]), element('span', 'wpp-option-description', entry[2]));
+      label.append(radio, face); registrationGrid.append(label);
+      radio.addEventListener('change', function () { if (radio.checked) { registrationMode = entry[0]; showSample = false; update(true); } });
+      registrationRecords.push({ radio: radio, value: entry[0] });
+    });
+    registrationChoices.append(registrationGrid);
     const layout = element('div', 'wpp-layout');
-    const designs = element('section', 'wpp-designs');
-    const heading = element('h2', 'wpp-heading', 'Choose a custom plate design');
-    const intro = element('p', 'wpp-muted', (catalog.designCount - 1) + ' special plate designs and ' + catalog.emblemCount + ' emblem examples from DOL.');
+    const designs = element('details', 'wpp-designs');
+    const heading = element('summary', 'wpp-design-summary', 'Change design');
+    const intro = element('p', 'wpp-sr-only', (catalog.designCount - 1) + ' special plate designs and ' + catalog.emblemCount + ' emblem examples from DOL.');
     const filters = element('div', 'wpp-filters');
     const search = unowned(element('input', 'wpp-search'));
     search.type = 'search'; search.autocomplete = 'off'; search.spellcheck = false;
@@ -145,14 +156,52 @@
     mobile.append(mobileLabel, mobileSelect, mobileEmpty);
 
     const panel = element('section', 'wpp-panel');
-    const panelHeading = element('h2', 'wpp-heading', 'Preview your plate');
+    const panelHeading = element('h2', 'wpp-heading', 'Your plate preview');
     const previewName = element('h3', 'wpp-preview-name', selected.name);
     const badge = element('p', 'wpp-eligibility');
     const registrationNote = element('p', 'wpp-registration-note');
     const stage = element('div', 'wpp-stage');
     const sourceImage = element('img', 'wpp-source-image'); sourceImage.draggable = false;
     const canvas = element('canvas', 'wpp-canvas'); canvas.hidden = true; canvas.setAttribute('role', 'img');
-    stage.append(sourceImage, canvas);
+    const plateSurface = element('div', 'wpp-plate-surface');
+    const tabButton = element('button', 'wpp-tabs'); tabButton.type = 'button';
+    const monthTab = element('span', 'wpp-tab wpp-tab--month');
+    const yearTab = element('span', 'wpp-tab wpp-tab--year');
+    tabButton.append(monthTab, yearTab);
+    let tabsVisible = true;
+    let tabDateKey = '';
+    const tabToggle = element('button', 'wpp-tabs-toggle'); tabToggle.type = 'button';
+    function updateTabs() {
+      const now = new Date();
+      const month = now.getMonth();
+      const year = now.getFullYear();
+      const key = year + '-' + month;
+      if (key !== tabDateKey) {
+        tabDateKey = key;
+        monthTab.replaceChildren(element('small', '', String(month + 1)), element('strong', '', ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][month]), element('small', '', 'WASHINGTON'));
+        yearTab.replaceChildren(element('small', '', 'WASHINGTON'), element('strong', '', String(year)), element('small', '', 'PREVIEW'));
+        monthTab.dataset.quarter = String(Math.floor(month / 3) + 1);
+        // 2026 is observed blue; future, unverified years use a neutral treatment.
+        yearTab.classList.toggle('wpp-tab--2026', year === 2026);
+      }
+      const available = !['collector-vehicle', 'horseless-carriage', 'restored'].includes(selected.id) && selected.personalization !== 'emblem-example';
+      tabButton.hidden = !available || showSample;
+      tabToggle.hidden = !available || showSample;
+      tabButton.classList.toggle('wpp-tabs--hidden', !tabsVisible);
+      tabButton.setAttribute('aria-pressed', String(tabsVisible));
+      const label = (tabsVisible ? 'Hide' : 'Show') + ' preview tabs for ' + now.toLocaleString('en-US', { month: 'long' }) + ' ' + year;
+      tabButton.setAttribute('aria-label', label); tabButton.title = label;
+      tabToggle.textContent = tabsVisible ? 'Hide tabs' : 'Show tabs';
+      tabToggle.setAttribute('aria-pressed', String(tabsVisible));
+      plateSurface.dataset.tabLayout = selected.id === 'throwback-plate' ? 'throwback' : (selected.id === 'standard' ? (Number(size.value) === 6 && registrationMode === 'personalized' ? 'motorcycle' : 'standard') : 'special');
+    }
+    function toggleTabs() { tabsVisible = !tabsVisible; updateTabs(); }
+    tabButton.addEventListener('click', toggleTabs); tabToggle.addEventListener('click', toggleTabs);
+    // Re-read the viewer's local date after midnight or when returning to this tab.
+    const tabTimer = global.setInterval(updateTabs, 60000);
+    doc.addEventListener('visibilitychange', updateTabs);
+    plateSurface.append(sourceImage, canvas, tabButton);
+    stage.append(plateSurface);
     const caption = element('p', 'wpp-caption');
     const variantNote = element('p', 'wpp-variant-note'); variantNote.hidden = true;
     const toggle = element('button', 'wpp-sample-toggle'); toggle.type = 'button'; toggle.hidden = true;
@@ -162,8 +211,8 @@
     [['7', 'Standard-size plate · up to 7 characters'], ['6', 'Motorcycle / small trailer · up to 6']].forEach(function (entry) {
       const option = element('option', '', entry[1]); option.value = entry[0]; size.append(option);
     });
-    const sizeHint = element('p', 'wpp-hint', 'Check the selected design’s DOL page for vehicle eligibility.');
-    const sizeGroup = element('div', 'wpp-size-controls'); sizeGroup.append(sizeLabel, size, sizeHint);
+    const sizeHint = element('p', 'wpp-hint', 'Vehicle eligibility varies by design.');
+    const sizeGroup = element('details', 'wpp-size-controls'); sizeGroup.append(element('summary', '', 'Plate size'), sizeLabel, size, sizeHint);
     const input = unowned(element('input', 'wpp-input')); input.type = 'text'; input.autocomplete = 'off'; input.spellcheck = false;
     input.placeholder = 'e.g. PNW VIB'; input.setAttribute('autocapitalize', 'characters');
     const inputLabel = labelFor(input, 'Preferred characters', 'characters');
@@ -177,10 +226,16 @@
     const official = element('a', 'wpp-official-link'); official.rel = 'noreferrer';
     const details = element('a', 'wpp-details-link', 'Design details and requirements at DOL'); details.rel = 'noreferrer';
     const privacy = element('p', 'wpp-official-note', 'Characters stay in this page. No availability lookup or reservation is performed.');
-    controls.append(sizeGroup, characterGroup, official, details, privacy);
+    controls.append(characterGroup, sizeGroup);
     const caveat = element('p', 'wpp-artwork-note', 'Original DOL sample artwork. Custom lettering and the background hidden behind printed sample text are approximations; exact production previews require DOL’s blank templates and approved lettering.');
     const status = element('p', 'wpp-sr-only'); status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite'); status.setAttribute('aria-atomic', 'true');
-    panel.append(panelHeading, previewName, badge, registrationNote, stage, caption, variantNote, toggle, controls, caveat, status);
+    const previewDetails = element('details', 'wpp-preview-details');
+    previewDetails.append(element('summary', '', 'Preview details'), registrationNote, variantNote, caveat, privacy, details);
+    const tabNote = element('p', 'wpp-tab-note', 'Tabs use the current month and year on your device for illustration, not a vehicle’s actual expiration. Colors and placement are approximate. Click the tab area to hide or restore them.');
+    previewDetails.append(tabNote);
+    const previewActions = element('div', 'wpp-preview-actions'); previewActions.append(toggle, tabToggle);
+    const approvalNote = element('p', 'wpp-approval-note', 'Preview only. DOL confirms availability, eligibility, and final appearance.');
+    panel.append(panelHeading, previewName, badge, stage, caption, previewActions, official, approvalNote, previewDetails, status);
 
     function currentArtwork() {
       // Separate published/authorized artwork can capture a design change between
@@ -359,17 +414,21 @@
       const hasInput = input.value.length > 0;
       const artwork = currentArtwork();
       previewName.textContent = selected.name;
-      badge.textContent = (custom ? 'Custom characters · ' : 'DOL-assigned characters · ') + eligibilityLabel(selected);
+      heading.textContent = 'Change design: ' + lastSpecial.name;
+      badge.textContent = !allowed ? eligibilityLabel(selected) : (custom ? 'Personalized characters' : 'DOL-assigned characters');
       registrationNote.textContent = custom ? 'Choose your preferred characters. Personalized lettering or layout can differ from the assigned-number sample.' : (allowed ? 'DOL assigns the next available number. This published sample illustrates the design; it is not your assigned number.' : 'View-only catalog entry. Follow its DOL requirements for characters or an existing plate. This published example does not assign a number.');
       designs.hidden = designType() === 'standard';
       layout.classList.toggle('wpp-layout--standard', designs.hidden);
-      choiceRecords.forEach(function (record) { record.radio.checked = record.value === designType() + '-' + registrationMode; });
-      sizeGroup.hidden = !custom; characterGroup.hidden = !custom;
+      choiceRecords.forEach(function (record) { record.radio.checked = record.value === designType(); });
+      registrationRecords.forEach(function (record) { record.radio.checked = record.value === registrationMode; });
+      sizeGroup.hidden = !custom || !allowed; characterGroup.hidden = !custom;
+      controls.hidden = !custom;
       input.disabled = !active; size.disabled = !active;
+      input.hidden = !allowed; hint.hidden = !allowed; labelRow.hidden = !allowed;
       input.setAttribute('aria-invalid', String(active && hasInput && !result.valid));
       counter.textContent = result.count + ' / ' + size.value;
       feedback.classList.toggle('wpp-feedback--error', active && hasInput && !result.valid);
-      feedback.textContent = allowed ? (hasInput ? result.message : 'Enter your preferred characters to preview this design.') : selected.eligibilityNote;
+      feedback.textContent = allowed ? (hasInput ? (result.valid ? 'Fits the character limit.' : result.message) : '') : selected.eligibilityNote;
       details.href = !custom && designType() === 'standard' ? 'https://dol.wa.gov/vehicles-and-boats/vehicles/license-plates' : selected.pageUrl;
       official.href = active ? 'https://fortress.wa.gov/dol/extdriveses/ESP/NoLogon/?Link=PersonalizedPlate' : details.href;
       official.textContent = active ? 'Check availability with DOL' : (custom || !allowed ? 'View DOL requirements' : 'Get ' + (designType() === 'standard' ? 'standard plates' : 'this design') + ' at DOL');
@@ -385,11 +444,12 @@
       canvas.hidden = true; sourceImage.hidden = false;
       renderVersion++;
       if (active && !showSample) {
-        caption.textContent = hasInput ? 'Your preview · original DOL artwork with approximate personalized lettering' : 'Personalized layout · enter your preferred characters';
+        caption.textContent = hasInput ? 'Approximate lettering on the official design.' : 'Your characters will appear here.';
         drawCandidate(result.count > Number(size.value) ? 'TOO LONG' : result.text, artwork);
       } else {
-        caption.textContent = custom ? 'Original DOL sample · published artwork and lettering' : (allowed ? 'DOL-assigned option · official sample, not your assigned number' : 'Original DOL example · see its requirements for numbering');
+        caption.textContent = showSample ? 'Original DOL sample, without preview tabs.' : (allowed ? 'Example number shown. DOL assigns your number.' : 'Official sample. Special requirements apply.');
       }
+      updateTabs();
       if (shouldAnnounce) announce(selected.name + '. ' + (custom ? feedback.textContent : registrationNote.textContent));
     }
 
@@ -440,15 +500,24 @@
       const image = element('img', 'wpp-card-image'); image.src = assetBase + data.artwork; image.alt = ''; image.loading = 'lazy'; image.draggable = false;
       image.width = data.width; image.height = data.height;
       const title = element('span', 'wpp-card-title', data.name);
-      const kind = element('span', 'wpp-card-category', eligibilityLabel(data));
+      const kind = element('span', 'wpp-card-category', personalizable(data) ? '' : eligibilityLabel(data));
       face.append(image, title, kind); label.append(radio, face);
-      radio.addEventListener('change', function () { if (radio.checked) choose(data.id, true); });
+      radio.addEventListener('change', function () {
+        if (!radio.checked) return;
+        choose(data.id, true);
+        designs.open = false;
+        heading.focus({ preventScroll: true });
+      });
       cards.append(label); records.push({ data: data, label: label, radio: radio });
     });
     search.addEventListener('input', function () { filterDesigns(true); });
     category.addEventListener('change', function () { filterDesigns(true); });
     clearFilters.addEventListener('click', function () { search.value = ''; category.value = 'All categories'; filterDesigns(true); search.focus(); });
-    mobileSelect.addEventListener('change', function () { choose(mobileSelect.value, true); });
+    mobileSelect.addEventListener('change', function () {
+      choose(mobileSelect.value, true);
+      designs.open = false;
+      heading.focus({ preventScroll: true });
+    });
     input.addEventListener('compositionstart', function () { composing = true; });
     input.addEventListener('compositionend', function () { composing = false; handleInput(); });
     function handleInput() {
@@ -463,7 +532,9 @@
     reset.addEventListener('click', function () { input.value = ''; showSample = false; update(true); input.focus(); });
     toggle.addEventListener('click', function () { showSample = !showSample; update(true); });
     designs.append(heading, intro, filters, count, cards, mobile, empty, clearFilters);
-    layout.append(designs, panel); root.classList.add('wa-plate-preview'); root.replaceChildren(choices, layout);
+    const configuration = element('div', 'wpp-configuration');
+    configuration.append(choices, designs, registrationChoices, controls);
+    layout.append(configuration, panel); root.classList.add('wa-plate-preview'); root.replaceChildren(layout);
     filterDesigns(false); update(false);
     const controller = Object.freeze({
       getState: function () {
@@ -480,7 +551,7 @@
       },
       destroy: function () {
         if (mounted.get(root) !== controller) return;
-        disposed = true; renderVersion++; global.clearTimeout(announcementTimer); images.clear(); input.value = '';
+        disposed = true; renderVersion++; global.clearTimeout(announcementTimer); global.clearInterval(tabTimer); doc.removeEventListener('visibilitychange', updateTabs); images.clear(); input.value = '';
         root.replaceChildren(); root.classList.remove('wa-plate-preview'); mounted.delete(root);
       }
     });

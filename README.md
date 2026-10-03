@@ -10,7 +10,7 @@ An independent community contribution offered for Washington Department of Licen
 
 ## Getting started
 
-The public [GitHub repository](https://github.com/gavinwright-engr/washington-license-plate-preview) includes the complete code, documentation, screenshots, and demo recording. Clone the repository or use GitHub's **Code → Download ZIP** to try the project. No versioned release has been published yet. [PUBLISHING.md](docs/PUBLISHING.md) explains release packaging and the optional source-download buttons.
+The public [GitHub repository](https://github.com/gavinwright-engr/washington-license-plate-preview) includes the complete code, documentation, screenshots, and demo recording. Clone the repository or use GitHub's **Code → Download ZIP** to try the project. No versioned release has been published yet. [PUBLISHING.md](docs/PUBLISHING.md) explains release packaging and the demo’s GitHub source links.
 
 From the repository directory, serve the demonstration with Python's built-in static server:
 
@@ -22,13 +22,13 @@ Open **http://localhost:8000**. Open `/widget.html` for the standalone addition.
 
 There is no `npm install` command. The readable files in `dist/` are both the source and the files to deploy.
 
-## Four plate options
+## Two choices, four combinations
 
 | Design | Characters | Preview |
 | --- | --- | --- |
-| Standard mountain | DOL assigned | Unchanged official standard sample; the default option |
+| Standard mountain | DOL assigned | Official standard sample with optional preview tabs; the default option |
 | Standard mountain | Personalized | Type preferred characters on the mountain background |
-| Special design | DOL assigned | Choose a design and view its unchanged official sample |
+| Special design | DOL assigned | Choose a design and view its official sample with optional preview tabs |
 | Special design | Personalized | Choose a design and type characters when personalization is documented |
 
 Assigned characters are sometimes called “random.” This preview shows a published example; it does not generate a number or predict the actual next available number DOL will assign. Switching to a special design restores the last special selection, starting with Throwback. Switching options retains a typed candidate in the page so it can be restored when you return to a supported personalized option.
@@ -68,13 +68,16 @@ Include each script once. `data-asset-base` is a local artwork directory; the ab
 - Includes **75 entries** checked against DOL on October 2, 2026: the standard mountain design, all 72 published special plate designs, and two emblem placement examples.
 - Offers candidate entry in personalized mode for 63 entries with documented personalization. Nine excluded designs, two emblem examples, and Rideshare with an undocumented personalization option remain viewable with character entry disabled.
 - Preserves **79 original DOL PNG/JPEG images unchanged**, including published sample and size variants. [The asset manifest](dist/assets/ASSET-MANIFEST.json) records source URLs, dimensions, and SHA-256 hashes.
-- Provides search, category filtering, a scrollable desktop grid, and a compact mobile picker. Filtering preserves the selected plate and candidate. **Show original DOL sample** compares the preview with the published image.
+- Keeps the flow to two choices: design, then characters, with the preview beside them on desktop. A collapsible design browser provides search, categories, a scrollable desktop grid, and a compact mobile picker. Filtering preserves the selected plate and candidate. **Show original DOL sample** compares the preview with the published image.
+- Shows the viewer’s current local month and year as optional preview tabs. Click the tabs, or use **Hide tabs / Show tabs**, to toggle them. Details and less common size controls stay collapsed until needed.
 - Uses the DOL website's actual Montserrat font locally, with its observed green `#0a5e2e`, blue `#155c91`, and near-white `#fdfdfd` styling.
 - Gives format feedback for A–Z, 0–9, spaces, and hyphens, with seven- or six-character limits. Spaces and hyphens count; ASCII lowercase becomes uppercase; input is not silently truncated.
 
 ## Preview boundaries
 
 A fitting character format does **not** mean a plate is available, eligible, reserved, or approved. DOL handles reserved patterns, eligibility, availability, and final review. The official links do not include the candidate.
+
+Preview tabs are an illustrative overlay, not a vehicle’s actual expiration date. Their colors and placement are approximate; original-sample comparison hides them.
 
 Assigned and personalized layouts may differ. The Throwback assigned sample has stacked `WA` and sample registration text; the personalized rendering removes configured sample marks as an approximation. The inspected sources do not confirm the exact personalized Throwback layout. Separate authorized assigned/personalized artwork can be configured; [ARTWORK.md](docs/ARTWORK.md) explains the source evidence and overrides.
 

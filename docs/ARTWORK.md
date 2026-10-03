@@ -4,7 +4,7 @@ The project preserves **79 official DOL PNG/JPEG sample files unchanged**. Desig
 
 ## Assigned and personalized variants
 
-The four option cards combine standard or special design with assigned or personalized characters. Assigned mode displays the unchanged official sample for that design. Its `SAMPLE`, `SMPLE`, or other published example text is not a generated number or a prediction of the actual next available number. DOL determines the issued characters under the applicable requirements. Radio call signs, qualifying restored plates, and emblems have additional rules; see [SOURCES.md](SOURCES.md).
+The independent design and character choices combine standard or special design with assigned or personalized characters. Assigned mode uses the unchanged official sample for that design, with a separate optional preview-tab overlay. Its `SAMPLE`, `SMPLE`, or other published example text is not a generated number or a prediction of the actual next available number. DOL determines the issued characters under the applicable requirements. Radio call signs, qualifying restored plates, and emblems have additional rules; see [SOURCES.md](SOURCES.md).
 
 The standard assigned option uses the generic published standard sample (`official/standard-3.png`); its personalized option uses the large mountain sample as the rendering source. Choosing personalized characters does not by itself change the mountain background to Throwback. Throwback is a special background available with either registration choice.
 
@@ -13,6 +13,14 @@ The [Throwback](https://dol.wa.gov/vehicles-and-boats/license-plates/get-custom-
 The assigned-style Throwback sample has stacked `WA` beside `SMPLE`. This prototype's personalized mask removes those marks to illustrate a custom character region. **The inspected official sources do not specifically confirm omission of `WA` or the exact personalized Throwback layout.** No distinct clean personalized Throwback sample or approved blank was published in the inspected pages or announcement, checked October 3, 2026. This mask is a documented approximation, not an official personalized variant. Exact rendering requires DOL-supplied mode-specific artwork and geometry.
 
 The bundled `seattle-seahawks-2.png` is an instructional graphic with a red X over `SH`, not a realistic personalized plate variant. It is preserved as a source asset and is not used as a production template.
+
+## Current-date preview tabs
+
+An HTML overlay shows the viewer’s current local month and year in the upper-right tab area. It is visible by default; clicking that area or its text toggle hides/restores it without changing the underlying image or Canvas. The preference lasts only for that widget instance. The date refreshes every minute and when the page becomes visible. The original-sample comparison hides the overlay entirely. Collector Vehicle, Horseless Carriage, Restored, and emblem examples omit it.
+
+These tabs are illustrative, not a vehicle’s actual expiration. Washington tabs represent the registration expiration period; see [WAC 308-96A-295](https://app.leg.wa.gov/wac/default.aspx?cite=308-96A-295) and [DOL tab renewal](https://dol.wa.gov/vehicles-and-boats/vehicles/renew-or-replace-vehicle-tabs). Placement follows the adjacent month/year placeholders in the bundled official samples, with approximate layouts for standard, Throwback, motorcycle, and other designs. Agency-approved geometry should replace these approximations for production.
+
+Month colors follow the historical quarterly pattern documented by the [University of Washington plate archive](https://staff.washington.edu/islade/cyclestickers.htm). The blue 2026 year treatment is a visual approximation of an [observed 2026 tab](https://komonews.com/news/local/wa-proposal-would-boost-fees-for-expired-tabs-parked-cars-included-registered-drivers-in-washington-state-licensing-parked-cars-tickets-sound-transit). No future color cycle is assumed: unverified years use a neutral color. The year tab is marked PREVIEW. Neither artwork files nor image metadata are modified.
 
 ## Mode-specific artwork configuration
 
@@ -133,6 +141,6 @@ The property does not download an arbitrary font URL or execute its contents as 
 
 ## Provenance and review
 
-`assets/ASSET-MANIFEST.json` records all 79 source URLs and SHA-256 hashes. Original images are exact downloaded responses, with no metadata stripping, cropping, recoloring, or saved sample-removal operation. Only the transient Canvas view changes. Compare source files and visual output when updating the catalogue. Current automated and browser evidence belongs in [VERIFICATION.md](VERIFICATION.md).
+`assets/ASSET-MANIFEST.json` records all 79 source URLs and SHA-256 hashes. Original images are exact downloaded responses, with no metadata stripping, cropping, recoloring, or saved sample-removal operation. Only the transient Canvas view and separate HTML preview-tab overlay change. Compare source files and visual output when updating the catalogue. Current automated and browser evidence belongs in [VERIFICATION.md](VERIFICATION.md).
 
 No official-image redistribution license was found in the inspected sources. These images are bundled for agency review with rights retained; see [ASSET-LICENSES.md](../ASSET-LICENSES.md) before separate deployment or redistribution.

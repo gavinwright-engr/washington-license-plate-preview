@@ -1,33 +1,33 @@
 # Screenshots and recorded demonstration
 
-Captured on October 3, 2026 from this project's `dist/` app served at `http://127.0.0.1:4176/wa-plate-preview/dist/`, using Python Playwright and Chromium 151.0.7922.173. Local fonts were ready before capture. Reduced motion was enabled. These captures show the four choices for standard or custom plate designs with DOL-assigned or personalized characters, including the updated per-design licensed font substitutes.
+Captured October 2, 2026 (America/Los_Angeles), from the locally served dist app in Edge/Chromium 154.0.4258.48. Local fonts were ready before capture. The screenshots use reduced motion; the recording uses normal motion and smooth browser scrolling.
 
 | File | Contents | Dimensions / duration | Size |
 | --- | --- | --- | --- |
-| [desktop.png](desktop.png) | Full desktop page: all four choices, personalized Throwback plate, `PNW VIB` | 1440 × 2387 | 451 KB |
-| [mobile.png](mobile.png) | Full mobile page: all four choices, personalized Throwback plate, `PNW VIB` | 390 × 3498 | 230 KB |
-| [demo.mp4](demo.mp4) | Actual browser interaction recording, silent H.264 MP4 | 1440 × 1400; 66.72 seconds; 25 fps | 3.54 MB |
-| [demo.gif](demo.gif) | Same recording, compact looping preview | 720 × 700; approximately 66.7 seconds; 7 fps | 4.56 MB |
+| [desktop.png](desktop.png) | Two-step flow with personalized Throwback preview and current-date tabs | 1440 × 1240 | 164 KB |
+| [mobile.png](mobile.png) | The same flow on a narrow screen | 390 × 1970 | 137 KB |
+| [demo.mp4](demo.mp4) | Silent browser interaction recording with visible cursor and click indicators | 1440 × 1000; 29.97 seconds; 60 fps | 2.03 MB |
+| [demo.gif](demo.gif) | Compact looping version of the same recording | 800 × 556; 30.00 seconds; 15 fps | 3.30 MB |
 
-The video records browser scrolling, all four option choices, plate selection, typing, filter changes, and original-sample comparisons. It shows the standard plate's barred `I`, the Throwback prefix/layout distinction, and different lettering shapes on Kraken and Professional Firefighter previews. FFmpeg converted the direct Chromium WebM stream to MP4 and GIF. No synthetic animation or explanatory overlays were added. The MP4 preserves the larger view for reading controls and disclosures; the GIF provides a compact inline demonstration. Raw recordings are outside the repository. Encoding metadata and interaction timestamps are in [capture-metadata.json](capture-metadata.json).
+The updated demo is about 55% shorter than the previous 67-second recording. It follows actual browser interactions: design/character choices, typing, tab visibility, design search, original-sample comparison, and a restricted design. A recorder-only cursor and subtle click rings follow the real pointer; they are not part of the website. Chromium DevTools captures the rendered frames with their original timing. FFmpeg resamples them to a 60 fps MP4 and a 15 fps GIF; there is no optical-flow interpolation. Both outputs were fully decoded successfully. Raw frames and capture tooling stay outside the repository. [capture-metadata.json](capture-metadata.json) records the timing and output properties.
 
 ## Text transcript
 
 Times are approximate. The recording is silent.
 
-1. **0–6 seconds:** The independent community demonstration opens with its government-service disclaimer. Scroll to the four choices. Standard plate with DOL-assigned characters displays the genuine DOL `SAMPLE` artwork and explains that this is an example, not an assigned number.
-2. **6–13 seconds:** Choose Standard plate + custom characters and type `I1O0WA`. The mountain preview updates while typing, with a barred `I` and fitted visible glyph widths.
-3. **13–17 seconds:** Return to the standard DOL-assigned option. The genuine `SAMPLE` artwork returns and custom character controls are hidden.
-4. **17–21 seconds:** Choose Custom plate + DOL-assigned characters. Throwback displays the unchanged original sample with its stacked `WA` prefix and `SMPLE` lettering.
-5. **21–29 seconds:** Choose Custom plate + custom characters and enter `PNW VIB`. The approximate personalized Throwback layout replaces the sample prefix and lettering. Switch between assigned and personalized options again to compare the layouts and retain the entered characters.
-6. **29–34 seconds:** Use Show original DOL sample, then return to the personalized Throwback preview.
-7. **34–42 seconds:** Filter to Sports, select Seattle Kraken, and type `SMPLE`. The preview uses a licensed substitute with a deep central `M`. Compare with the original DOL sample and return to the preview.
-8. **42–52 seconds:** Search for `firefighter` and choose Professional Firefighter. Its preview uses a different licensed substitute with a conventional `M`. Compare with the original DOL sample and return to the preview.
-9. **52–58 seconds:** Search for `collector` and choose Collector Vehicle. Its original sample appears, the page explains that it cannot be personalized, and character editing is disabled.
-10. **58–67 seconds:** Clear filters, return to personalized Throwback, and type `PNW VIB`. Scroll to the local-only preview explanation, code/artwork rights disclosure, and independent-community-demo footer.
+- **0.0 seconds:** Simple design and character choices; current-date tabs are shown by default.
+- **2.9 seconds:** Personalize the standard mountain plate.
+- **6.2 seconds:** Click the tabs to hide them.
+- **7.2 seconds:** Click the same area to restore tabs.
+- **8.3 seconds:** Switch to Throwback while keeping the same characters.
+- **11.7 seconds:** Find Seattle Kraken; the design browser closes after selection.
+- **15.4 seconds:** Compare the original DOL sample.
+- **17.8 seconds:** Use DOL-assigned characters on a special design.
+- **22.3 seconds:** A restricted design shows its requirements.
+- **28.4 seconds:** Return to the personalized Throwback preview.
 
 ## Artwork and preview accuracy
 
-These captures include official sample plate artwork, organizational logos, and locally hosted open-license fonts. Their separate rights and source attribution are documented in [ASSET-LICENSES.md](../../ASSET-LICENSES.md), [ARTWORK.md](../ARTWORK.md), and [SOURCES.md](../SOURCES.md). Captures do not grant an additional license to that artwork.
+These captures include official sample artwork and locally hosted open-license fonts. Their separate rights and source attribution are documented in [ASSET-LICENSES.md](../../ASSET-LICENSES.md), [ARTWORK.md](../ARTWORK.md), and [SOURCES.md](../SOURCES.md). Captures do not grant an additional license to that artwork.
 
-Assigned and original-sample modes display unchanged DOL images. The assigned option illustrates a design and does not generate or reserve a number. Personalized lettering and background reconstruction are approximate. Selected fonts are licensed visual substitutes, not identified manufacturing fonts; exact production previews require DOL's approved blank templates and lettering. The app displays these distinctions in the recording, including the Throwback prefix/layout difference. DOL determines availability, eligibility, and approval. All typed examples in these captures stay in the local page.
+Assigned mode uses the original sample with a separate optional date-tab overlay; it does not generate or reserve a number. Original-sample comparison hides the overlay. Tabs display the current device month and year for illustration, not actual vehicle expiration. Personalized lettering, reconstructed backgrounds, tab colors, and placement are approximate. DOL determines availability, eligibility, and final approval. All typed examples stay in the local page.

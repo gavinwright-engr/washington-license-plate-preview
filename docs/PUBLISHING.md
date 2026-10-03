@@ -37,12 +37,6 @@ git archive --format=zip --prefix=wa-plate-preview/ --output=../wa-plate-preview
 
 To publish a versioned release, attach the ZIP to a GitHub release along with a SHA-256 checksum and, optionally, `docs/media/demo.mp4` as a separate easy-to-download asset. The handoff draft contains the confirmed repository URL. Add a release-download link to the README only after that release exists.
 
-The optional demo shell's download buttons use the local `wa-plate-preview.zip` filename. Copy the generated review ZIP to `dist/wa-plate-preview.zip` when serving those buttons:
-
-```sh
-cp ../wa-plate-preview.zip dist/wa-plate-preview.zip
-```
-
-That generated copy is ignored by Git and excluded from the review ZIP to avoid recursive archives. A recipient extracting the ZIP can use the same procedure after initializing and committing the Git checkout, or update the two demo download links to the actual published release asset. The embeddable widget has no project-download controls.
+The demo shell links directly to the public GitHub repository for source and integration instructions. Those links work without a separately hosted ZIP. If a versioned release is published later, its confirmed download URL can replace the source links. The embeddable widget has no project-download controls.
 
 The ZIP contains all source files and media but excludes `.git/` and duplicate generated ZIPs. Extract it, serve `dist/`, and review the README, integration instructions, approximation limits, and separate asset rights before offering it to DOL.
