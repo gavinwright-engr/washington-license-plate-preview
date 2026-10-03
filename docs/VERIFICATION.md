@@ -1,6 +1,17 @@
 # Verification record
 
-## Gallery browsing update
+## Cost groups and quieter browsing
+
+Checked October 2, 2026 in Edge/Chromium **154.0.4258.48**, under the standalone CSP.
+
+- All 14 Node checks pass, including fee exceptions, null-versus-zero handling, and unchanged original artwork/font integrity.
+- Standard and special plate types are separate. Standard starts without a gallery. Special opens six thumbnails, each at most 160 pixels wide; all 55 common-rate designs are reachable through Show more. Other cost groups retain all remaining catalog entries.
+- Initial/renewal prices update with personalization. Square Dancer, Keep Kids Safe, standard, and individual eligibility-based entries remain separate. Cost-group changes reset gallery filters, restore the last choice in that group, and preserve typed characters. Standard/special changes restore the last special choice.
+- Search, category filtering, empty results, native radio arrow navigation, all 75 assigned images, sample comparison, tab click/keyboard controls, unsupported personalization, multiple instances, and host-form isolation passed.
+- Standard and special layouts at 320, 390, 760, 810, 1000, 1024, 1440, and 1920 pixels have no horizontal overflow. Mobile preview/back shortcuts and shortcut visibility passed. Browser errors: zero; requests stayed local and used GET.
+- Screenshots and the cursor-visible recording were refreshed. Passenger-only fee scope and source discrepancies are documented in [FEES.md](FEES.md).
+
+## Earlier gallery browsing update
 
 Checked October 2, 2026 (America/Los_Angeles) in Edge/Chromium **154.0.4258.48**, under the normal standalone CSP.
 

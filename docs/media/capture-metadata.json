@@ -9,58 +9,62 @@
   "events": [
     {
       "seconds": 0,
-      "action": "Browse a wide thumbnail gallery with a compact preview"
+      "action": "Start with the separate standard plate and regular-fee option"
     },
     {
-      "seconds": 2.73,
+      "seconds": 1.56,
+      "action": "Open the special-design cost group and six compact thumbnails"
+    },
+    {
+      "seconds": 3.17,
       "action": "Select Throwback while keeping the gallery open"
     },
     {
-      "seconds": 4.93,
+      "seconds": 5.36,
       "action": "Type characters in the compact preview panel"
     },
     {
-      "seconds": 5.54,
+      "seconds": 5.97,
       "action": "Hide the current-date tabs"
     },
     {
-      "seconds": 6.46,
+      "seconds": 6.9,
       "action": "Restore the tabs"
     },
     {
-      "seconds": 7.57,
+      "seconds": 8.05,
+      "action": "View Square Dancer separately at its different initial and renewal rates"
+    },
+    {
+      "seconds": 10.08,
       "action": "Filter the gallery to Sports"
     },
     {
-      "seconds": 9.25,
+      "seconds": 11.78,
       "action": "Compare sports designs without closing the gallery"
     },
     {
-      "seconds": 12.66,
+      "seconds": 15.24,
       "action": "Compare the original DOL sample"
     },
     {
-      "seconds": 15.11,
-      "action": "Reveal more designs with ordinary page scrolling"
-    },
-    {
-      "seconds": 21.34,
-      "action": "Return to the gallery with the personalized selection preserved"
+      "seconds": 18.07,
+      "action": "Return to standard with the typed characters preserved and its own personalized price"
     }
   ],
   "capture_method": "Actual Chromium DevTools screencast frames with original frame timing. A recorder-only cursor and click indicator follow the real pointer; neither is included in the website.",
   "reduced_motion": false,
-  "capture_duration_seconds": 22.56,
-  "source_frame_count": 1066,
+  "capture_duration_seconds": 19.27,
+  "source_frame_count": 903,
   "encoding": {
     "video": {
       "file": "demo.mp4",
       "width": 1440,
       "height": 1000,
       "fps": 60,
-      "frames": 1353,
-      "duration_seconds": 22.55,
-      "bytes": 3137540,
+      "frames": 1156,
+      "duration_seconds": 19.267,
+      "bytes": 1473991,
       "codec": "H.264",
       "audio": false,
       "frame_timing": "Original capture timing resampled to 60 fps; no optical-flow interpolation."
@@ -70,25 +74,25 @@
       "fps": 15,
       "width": 800,
       "height": 556,
-      "frames": 338,
-      "duration_seconds": 22.54,
-      "bytes": 4430712
+      "frames": 289,
+      "duration_seconds": 19.27,
+      "bytes": 2562274
     }
   },
   "screenshots": {
     "desktop": {
       "width": 1440,
-      "height": 1261,
+      "height": 1549,
       "frames": 1,
       "duration_seconds": 0,
-      "bytes": 442459
+      "bytes": 250696
     },
     "mobile": {
       "width": 390,
-      "height": 2678,
+      "height": 2649,
       "frames": 1,
       "duration_seconds": 0,
-      "bytes": 279812
+      "bytes": 221981
     }
   }
 }

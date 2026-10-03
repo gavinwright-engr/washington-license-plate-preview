@@ -4,27 +4,28 @@ Captured October 2, 2026 (America/Los_Angeles), from the locally served dist app
 
 | File | Contents | Dimensions / duration | Size |
 | --- | --- | --- | --- |
-| [desktop.png](desktop.png) | Wide thumbnail gallery with a compact preview | 1440 × 1261 | 442 KB |
-| [mobile.png](mobile.png) | Mobile gallery with a preview shortcut | 390 × 2678 | 280 KB |
-| [demo.mp4](demo.mp4) | Silent browser interaction recording with visible cursor and click indicators | 1440 × 1000; 22.55 seconds; 60 fps | 3.14 MB |
-| [demo.gif](demo.gif) | Compact looping version of the same recording | 800 × 556; 22.54 seconds; 15 fps | 4.43 MB |
+| [desktop.png](desktop.png) | Wide thumbnail gallery with a compact preview | 1440 × 1549 | 251 KB |
+| [mobile.png](mobile.png) | Mobile gallery with a preview shortcut | 390 × 2649 | 222 KB |
+| [demo.mp4](demo.mp4) | Silent browser interaction recording with visible cursor and click indicators | 1440 × 1000; 19.27 seconds; 60 fps | 1.47 MB |
+| [demo.gif](demo.gif) | Compact looping version of the same recording | 800 × 556; 19.27 seconds; 15 fps | 2.56 MB |
 
-The updated demo shows the gallery layout in under 30 seconds. It follows actual browser interactions: gallery selection, typing, tab visibility, category filtering, original-sample comparison, and loading more designs. A recorder-only cursor and subtle click rings follow the real pointer; they are not part of the website. Chromium DevTools captures the rendered frames with their original timing. FFmpeg resamples them to a 60 fps MP4 and a 15 fps GIF; there is no optical-flow interpolation. Both outputs were fully decoded successfully. Raw frames and capture tooling stay outside the repository. [capture-metadata.json](capture-metadata.json) records the timing and output properties.
+The updated demo shows standard/special separation and cost groups in about 19 seconds. It follows actual browser interactions: gallery selection, typing, tab visibility, cost and category filtering, original-sample comparison, and returning to standard with the candidate preserved. A recorder-only cursor and subtle click rings follow the real pointer; they are not part of the website. Chromium DevTools captures the rendered frames with their original timing. FFmpeg resamples them to a 60 fps MP4 and a 15 fps GIF; there is no optical-flow interpolation. Both outputs were fully decoded successfully. Raw frames and capture tooling stay outside the repository. [capture-metadata.json](capture-metadata.json) records the timing and output properties.
 
 ## Text transcript
 
 Times are approximate. The recording is silent.
 
-- **0.0 seconds:** Browse a wide thumbnail gallery with a compact preview.
-- **2.7 seconds:** Select Throwback while keeping the gallery open.
-- **4.9 seconds:** Type characters in the compact preview panel.
-- **5.5 seconds:** Hide the current-date tabs.
-- **6.5 seconds:** Restore the tabs.
-- **7.6 seconds:** Filter the gallery to Sports.
-- **9.3 seconds:** Compare sports designs without closing the gallery.
-- **12.7 seconds:** Compare the original DOL sample.
-- **15.1 seconds:** Reveal more designs with ordinary page scrolling.
-- **21.3 seconds:** Return to the gallery with the personalized selection preserved.
+- **0.0 seconds:** Start with the separate standard plate and regular-fee option.
+- **1.6 seconds:** Open the special-design cost group and six compact thumbnails.
+- **3.2 seconds:** Select Throwback while keeping the gallery open.
+- **5.4 seconds:** Type characters in the compact preview panel.
+- **6.0 seconds:** Hide the current-date tabs.
+- **6.9 seconds:** Restore the tabs.
+- **8.1 seconds:** View Square Dancer separately at its different initial and renewal rates.
+- **10.1 seconds:** Filter the gallery to Sports.
+- **11.8 seconds:** Compare sports designs without closing the gallery.
+- **15.2 seconds:** Compare the original DOL sample.
+- **18.1 seconds:** Return to standard with the typed characters preserved and its own personalized price.
 
 ## Artwork and preview accuracy
 
