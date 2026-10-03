@@ -12,6 +12,8 @@ The 23-second preview below plays automatically.
 
 [Download MP4](docs/media/demo.mp4) · [Desktop](docs/media/desktop.png) · [Mobile](docs/media/mobile.png)
 
+[See the current DOL page and proposed interaction](docs/COMPARISON.md).
+
 - **Choose your plate:** standard or special, with assigned or custom characters. All 74 special entries are visible, organized into 11 categories with instant search.
 - **Try your characters:** live previews enforce the selected six- or seven-character limit and flag extra input in red. Compare the original sample or toggle the month/year tabs.
 - **Easy to embed:** responsive HTML, CSS, and JavaScript. No dependencies, build step, accounts, or tracking.

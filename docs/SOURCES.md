@@ -44,7 +44,7 @@ These mode and variant sources were checked October 3, 2026. All seven relevant 
 
 ## Format feedback scope
 
-DOL describes A–Z, 0–9, hyphens, and spaces, with 1–7 characters on standard plates and 1–6 on motorcycle/small-trailer plates. This preview counts all entered spaces and hyphens, uppercases ASCII lowercase, and reports unsupported or overlong candidates without silently deleting them. It requires at least one letter or number; all-space or all-hyphen input is not a meaningful preview candidate.
+DOL describes A–Z, 0–9, hyphens, and spaces, with 1–7 characters on standard plates and 1–6 on motorcycle/small-trailer plates. This preview counts all entered spaces and hyphens, uppercases ASCII lowercase, reports unsupported characters, and blocks input beyond the selected limit with visible feedback. Switching to the smaller size trims the value to six characters with the same feedback. It requires at least one letter or number; all-space or all-hyphen input is not a meaningful preview candidate.
 
 DOL also reserves letter/number combinations, excludes offensive words and some plate types, and reviews applications. The preview does not implement a complete issuance rules engine or word filter. A fitting character format never means available, eligible, reserved, or approved. No fees, processing estimates, payment, application, or availability service are implemented.
 
